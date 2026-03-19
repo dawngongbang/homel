@@ -1081,24 +1081,8 @@ function makePlayerCard(btn, gid) {
   const hasEntrance = !!(btn.entrance && btn.entrance.videoId);
   const isActive    = activeInfo && activeInfo.groupId === gid && activeInfo.btnId === btn.id;
   const isSel       = selectedIds.has(btn.id);
-
-  if (!hasEntrance) {
-    const pad = makePad(btn, gid);
-    if (btn.battingOrder) {
-      const ord = document.createElement('div'); ord.className = 'batting-order-top';
-      ord.textContent = `${btn.battingOrder}번`; pad.appendChild(ord);
-    }
-    if (btn.number != null) {
-      const jerseyEl = document.createElement('div'); jerseyEl.className = 'player-order-num';
-      jerseyEl.textContent = btn.number;
-      const labelEl = pad.querySelector('.pad-label');
-      labelEl.insertAdjacentElement('afterend', jerseyEl);
-    }
-    return pad;
-  }
-
-  const isEntrance = isActive && activeInfo.mode === 'entrance';
-  const isCheer    = isActive && (activeInfo.mode === 'cheer' || !activeInfo.mode);
+  const isEntrance  = isActive && activeInfo.mode === 'entrance';
+  const isCheer     = isActive && (activeInfo.mode === 'cheer' || !activeInfo.mode);
 
   const card = document.createElement('div');
   card.className = 'player-card' +
@@ -1110,32 +1094,36 @@ function makePlayerCard(btn, gid) {
     const ord = document.createElement('div'); ord.className = 'batting-order-top';
     ord.textContent = `${btn.battingOrder}번`; card.appendChild(ord);
   }
-  const top = document.createElement('div'); top.className = 'player-card-top'; top.title = '클릭: 등장→응원 연결';
-  const nameEl  = document.createElement('div'); nameEl.className = 'player-name'; nameEl.textContent = btn.label || '(이름 없음)';
+
+  const top = document.createElement('div'); top.className = 'player-card-top';
+  const nameEl   = document.createElement('div'); nameEl.className = 'player-name'; nameEl.textContent = btn.label || '(이름 없음)';
   const jerseyEl = document.createElement('div'); jerseyEl.className = 'player-order-num';
   jerseyEl.textContent = btn.number != null ? btn.number : '';
   top.append(nameEl, jerseyEl);
   top.onclick = () => handleChainClick(gid, btn.id);
+  card.appendChild(top);
 
-  const actions = document.createElement('div'); actions.className = 'player-card-actions';
-  const entBtn = document.createElement('button');
-  entBtn.className = 'player-action-btn' + (isEntrance ? ' entrance-active' : '');
-  entBtn.dataset.gid = gid; entBtn.dataset.bid = btn.id; entBtn.dataset.mode = 'entrance';
-  entBtn.innerHTML = '<span>🎵</span><span>등장</span>';
-  entBtn.onclick = e => { e.stopPropagation(); handleEntranceClick(gid, btn.id); };
-
-  const cheBtn = document.createElement('button');
-  cheBtn.className = 'player-action-btn' + (isCheer ? ' cheer-active' : '');
-  cheBtn.dataset.gid = gid; cheBtn.dataset.bid = btn.id; cheBtn.dataset.mode = 'cheer';
-  cheBtn.innerHTML = '<span>⚾</span><span>응원</span>';
-  cheBtn.onclick = e => { e.stopPropagation(); handleCheerClick(gid, btn.id); };
-  actions.append(entBtn, cheBtn);
+  if (hasEntrance) {
+    const actions = document.createElement('div'); actions.className = 'player-card-actions';
+    const entBtn = document.createElement('button');
+    entBtn.className = 'player-action-btn' + (isEntrance ? ' entrance-active' : '');
+    entBtn.dataset.gid = gid; entBtn.dataset.bid = btn.id; entBtn.dataset.mode = 'entrance';
+    entBtn.innerHTML = '<span>🎵</span><span>등장</span>';
+    entBtn.onclick = e => { e.stopPropagation(); handleEntranceClick(gid, btn.id); };
+    const cheBtn = document.createElement('button');
+    cheBtn.className = 'player-action-btn' + (isCheer ? ' cheer-active' : '');
+    cheBtn.dataset.gid = gid; cheBtn.dataset.bid = btn.id; cheBtn.dataset.mode = 'cheer';
+    cheBtn.innerHTML = '<span>⚾</span><span>응원</span>';
+    cheBtn.onclick = e => { e.stopPropagation(); handleCheerClick(gid, btn.id); };
+    actions.append(entBtn, cheBtn);
+    card.appendChild(actions);
+  }
 
   const edit = document.createElement('button');
   edit.className = 'pad-edit-btn'; edit.title = '편집'; edit.textContent = '✏';
   edit.onclick = e => { e.stopPropagation(); openEditPanelByBtn(gid, btn.id); };
+  card.appendChild(edit);
 
-  card.append(top, actions, edit);
   return card;
 }
 
