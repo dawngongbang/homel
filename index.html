@@ -231,12 +231,12 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   font-size: 0.6rem; color: rgba(255,255,255,0.6); font-weight: 700;
   pointer-events: none;
 }
-/* jersey number — 절대 위치, 열 수에 따라 크기 조정 */
+/* jersey number — 이름 아래, 열 수에 따라 크기 조정 */
 .player-order-num {
-  position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
   font-size: clamp(1rem, calc(5rem / var(--grid-cols, 4)), 2.8rem);
   font-weight: 900; color: #fff; line-height: 1;
-  letter-spacing: -2px; z-index: 2; pointer-events: none; white-space: nowrap;
+  letter-spacing: -2px; position: relative; z-index: 2; pointer-events: none; white-space: nowrap;
+  margin-top: 2px;
   text-shadow:
     -1px -1px 0 var(--accent, #e74c3c),  1px -1px 0 var(--accent, #e74c3c),
     -1px  1px 0 var(--accent, #e74c3c),   1px  1px 0 var(--accent, #e74c3c),
@@ -1091,8 +1091,8 @@ function makePlayerCard(btn, gid) {
     if (btn.number != null) {
       const jerseyEl = document.createElement('div'); jerseyEl.className = 'player-order-num';
       jerseyEl.textContent = btn.number;
-      const editBtn = pad.querySelector('.pad-edit-btn');
-      pad.insertBefore(jerseyEl, editBtn);
+      const labelEl = pad.querySelector('.pad-label');
+      labelEl.insertAdjacentElement('afterend', jerseyEl);
     }
     return pad;
   }
@@ -1111,10 +1111,10 @@ function makePlayerCard(btn, gid) {
     ord.textContent = `${btn.battingOrder}번`; card.appendChild(ord);
   }
   const top = document.createElement('div'); top.className = 'player-card-top'; top.title = '클릭: 등장→응원 연결';
+  const nameEl  = document.createElement('div'); nameEl.className = 'player-name'; nameEl.textContent = btn.label || '(이름 없음)';
   const jerseyEl = document.createElement('div'); jerseyEl.className = 'player-order-num';
   jerseyEl.textContent = btn.number != null ? btn.number : '';
-  const nameEl  = document.createElement('div'); nameEl.className = 'player-name'; nameEl.textContent = btn.label || '(이름 없음)';
-  top.append(jerseyEl, nameEl);
+  top.append(nameEl, jerseyEl);
   top.onclick = () => handleChainClick(gid, btn.id);
 
   const actions = document.createElement('div'); actions.className = 'player-card-actions';
