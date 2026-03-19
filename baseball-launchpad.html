@@ -217,9 +217,19 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 
 /* 오른쪽 패널 */
 .right-panel {
-  width: 300px; background: #16213e;
-  border-left: 2px solid #0f3460; display: flex; flex-direction: column; overflow: hidden;
+  width: 300px; background: #16213e; position: relative;
+  border-left: 2px solid #0f3460; display: flex; flex-direction: row; overflow: hidden;
+  transition: width 0.2s ease; flex-shrink: 0;
 }
+.right-panel.collapsed { width: 32px; min-width: 32px; }
+.right-panel.collapsed .right-panel-inner { display: none; }
+.panel-toggle {
+  width: 32px; min-width: 32px; background: #0f3460; border: none; color: #aaa; cursor: pointer;
+  font-size: 0.9rem; display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid #1a5276; flex-shrink: 0;
+}
+.panel-toggle:hover { color: #eee; background: #1a5276; }
+.right-panel-inner { display: flex; flex-direction: column; flex: 1; overflow: hidden; min-width: 0; }
 .panel-tab { display: flex; border-bottom: 2px solid #0f3460; overflow-x: auto; }
 .tab-btn {
   flex: 1; background: none; border: none; color: #aaa; padding: 10px 8px;
@@ -352,7 +362,9 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   </div>
 
   <!-- 오른쪽 편집 패널 -->
-  <div class="right-panel">
+  <div class="right-panel" id="right-panel">
+    <button class="panel-toggle" id="panel-toggle" onclick="toggleRightPanel()" title="패널 열기/닫기">◀</button>
+    <div class="right-panel-inner" id="right-panel-inner">
     <div class="panel-tab">
       <button class="tab-btn active" data-tab="edit"   onclick="switchTab('edit')">버튼 편집</button>
       <button class="tab-btn"        data-tab="parser" onclick="switchTab('parser')">⚡ 파서</button>
@@ -464,6 +476,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
         <button class="btn-primary" style="margin-top:8px" onclick="applyImport()">적용</button>
       </div>
     </div>
+    </div><!-- /right-panel-inner -->
   </div>
 </div>
 
@@ -591,6 +604,14 @@ function ctrlStop() {
   setActiveInfo(null); updateNowPlaying(null);
 }
 function ctrlVolume(v) { if (frameReady) ytFrame.setVolume(parseInt(v)); }
+function toggleRightPanel() {
+  const panel = document.getElementById('right-panel');
+  const btn   = document.getElementById('panel-toggle');
+  const collapsed = panel.classList.toggle('collapsed');
+  btn.textContent = collapsed ? '▶' : '◀';
+  btn.title = collapsed ? '패널 열기' : '패널 닫기';
+}
+
 function togglePlayer() {
   const wrap = document.getElementById('player-wrap');
   const btn  = document.getElementById('player-toggle');
