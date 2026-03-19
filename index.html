@@ -226,9 +226,10 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   display: flex; align-items: baseline; gap: 4px;
   position: relative; z-index: 2;
 }
-.player-order-badge {
-  font-size: 0.6rem; color: rgba(255,255,255,0.55); font-weight: 700;
-  white-space: nowrap;
+.batting-order-top {
+  position: absolute; top: 5px; left: 7px; z-index: 3;
+  font-size: 0.6rem; color: rgba(255,255,255,0.6); font-weight: 700;
+  pointer-events: none;
 }
 /* jersey number — white with accent outline */
 .player-order-num {
@@ -1075,15 +1076,15 @@ function makePlayerCard(btn, gid) {
 
   if (!hasEntrance) {
     const pad = makePad(btn, gid);
-    if (btn.number != null || btn.battingOrder) {
-      const numRow = document.createElement('div'); numRow.className = 'player-num-row';
+    if (btn.battingOrder) {
+      const ord = document.createElement('div'); ord.className = 'batting-order-top';
+      ord.textContent = `${btn.battingOrder}번`; pad.appendChild(ord);
+    }
+    if (btn.number != null) {
       const jerseyEl = document.createElement('div'); jerseyEl.className = 'player-order-num';
-      jerseyEl.textContent = btn.number != null ? btn.number : '';
-      const orderBadge = document.createElement('div'); orderBadge.className = 'player-order-badge';
-      orderBadge.textContent = btn.battingOrder ? `${btn.battingOrder}번` : '';
-      numRow.append(jerseyEl, orderBadge);
+      jerseyEl.textContent = btn.number;
       const editBtn = pad.querySelector('.pad-edit-btn');
-      pad.insertBefore(numRow, editBtn);
+      pad.insertBefore(jerseyEl, editBtn);
     }
     return pad;
   }
@@ -1097,17 +1098,15 @@ function makePlayerCard(btn, gid) {
   card.style.setProperty('--accent', btn.color || '#e74c3c');
   card.dataset.gid = gid; card.dataset.bid = btn.id;
 
+  if (btn.battingOrder) {
+    const ord = document.createElement('div'); ord.className = 'batting-order-top';
+    ord.textContent = `${btn.battingOrder}번`; card.appendChild(ord);
+  }
   const top = document.createElement('div'); top.className = 'player-card-top'; top.title = '클릭: 등장→응원 연결';
-  // 등번호 (크게) + 타순 (작게)
-  const numRow  = document.createElement('div'); numRow.className = 'player-num-row';
   const jerseyEl = document.createElement('div'); jerseyEl.className = 'player-order-num';
   jerseyEl.textContent = btn.number != null ? btn.number : '';
-  const orderBadge = document.createElement('div'); orderBadge.className = 'player-order-badge';
-  orderBadge.textContent = btn.battingOrder ? `${btn.battingOrder}번` : '';
-  numRow.append(jerseyEl, orderBadge);
   const nameEl  = document.createElement('div'); nameEl.className = 'player-name'; nameEl.textContent = btn.label || '(이름 없음)';
-  const hint    = document.createElement('div'); hint.className = 'player-chain-hint'; hint.textContent = '▶ 등장→응원';
-  top.append(numRow, nameEl, hint);
+  top.append(jerseyEl, nameEl);
   top.onclick = () => handleChainClick(gid, btn.id);
 
   const actions = document.createElement('div'); actions.className = 'player-card-actions';
