@@ -163,8 +163,8 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   font-size: 0.9rem; color: #e94560; font-weight: bold; pointer-events: none;
 }
 
-.pad-label { font-size: 0.82rem; font-weight: 800; line-height: 1.2; pointer-events: none; letter-spacing: -0.2px; }
-.pad-time  { font-size: 0.62rem; opacity: 0.6; margin-top: 4px; pointer-events: none; }
+.pad-label { font-size: clamp(0.65rem, calc(3.2rem / var(--grid-cols, 4)), 1.05rem); font-weight: 800; line-height: 1.2; pointer-events: none; letter-spacing: -0.2px; }
+.pad-time  { display: none; }
 .pad-badge {
   position: absolute; top: 5px; left: 6px; z-index: 2;
   border-radius: 3px; padding: 1px 5px;
@@ -231,18 +231,21 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   font-size: 0.6rem; color: rgba(255,255,255,0.6); font-weight: 700;
   pointer-events: none;
 }
-/* jersey number — white with accent outline */
+/* jersey number — 절대 위치, 열 수에 따라 크기 조정 */
 .player-order-num {
-  font-size: 1.6rem; font-weight: 900; color: #fff; line-height: 1;
-  letter-spacing: -2px; position: relative; z-index: 2;
+  position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+  font-size: clamp(1rem, calc(5rem / var(--grid-cols, 4)), 2.8rem);
+  font-weight: 900; color: #fff; line-height: 1;
+  letter-spacing: -2px; z-index: 2; pointer-events: none; white-space: nowrap;
   text-shadow:
     -1px -1px 0 var(--accent, #e74c3c),  1px -1px 0 var(--accent, #e74c3c),
     -1px  1px 0 var(--accent, #e74c3c),   1px  1px 0 var(--accent, #e74c3c),
     0 3px 8px rgba(0,0,0,0.8);
 }
 .player-name {
-  font-size: 0.88rem; font-weight: 800; line-height: 1.1; margin-top: 2px;
-  position: relative; z-index: 2; letter-spacing: 1.5px;
+  font-size: clamp(0.65rem, calc(3.2rem / var(--grid-cols, 4)), 1.05rem);
+  font-weight: 800; line-height: 1.1; margin-top: 2px;
+  position: relative; z-index: 2; letter-spacing: 1px;
   text-shadow: 0 1px 5px rgba(0,0,0,0.9);
 }
 .player-chain-hint { display: none; }
@@ -998,6 +1001,7 @@ function renderGeneralGroup(g, container, cols) {
   const grid = document.createElement('div');
   grid.className = 'launchpad-grid';
   grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  grid.style.setProperty('--grid-cols', cols);
   g.buttons.forEach(btn => grid.appendChild(makePad(btn, g.id)));
   if (!selectMode) {
     const add = document.createElement('button');
@@ -1020,6 +1024,7 @@ function renderPlayerGroup(g, container, cols) {
   const gridS = document.createElement('div');
   gridS.className = 'launchpad-grid';
   gridS.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  gridS.style.setProperty('--grid-cols', cols);
   starters.forEach(btn => gridS.appendChild(makePlayerCard(btn, g.id)));
   if (!selectMode) {
     const addS = document.createElement('button');
@@ -1037,6 +1042,7 @@ function renderPlayerGroup(g, container, cols) {
   const gridB = document.createElement('div');
   gridB.className = 'launchpad-grid';
   gridB.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  gridB.style.setProperty('--grid-cols', cols);
   bench.forEach(btn => gridB.appendChild(makePlayerCard(btn, g.id)));
   container.appendChild(gridB);
 }
