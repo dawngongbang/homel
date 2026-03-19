@@ -8,26 +8,17 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: #1a1a2e;
-  color: #eee;
+  background: #1a1a2e; color: #eee;
   font-family: 'Segoe UI', sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  user-select: none;
+  display: flex; flex-direction: column; min-height: 100vh; user-select: none;
 }
 
 header {
-  background: #16213e;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  border-bottom: 2px solid #0f3460;
-  flex-wrap: wrap;
+  background: #16213e; padding: 12px 20px;
+  display: flex; align-items: center; gap: 16px;
+  border-bottom: 2px solid #0f3460; flex-wrap: wrap;
 }
 header h1 { font-size: 1.2rem; color: #e94560; white-space: nowrap; }
-
 .header-controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 
 .btn-small {
@@ -40,27 +31,18 @@ header h1 { font-size: 1.2rem; color: #e94560; white-space: nowrap; }
 .main { display: flex; flex: 1; overflow: hidden; }
 
 /* 왼쪽 패널 */
-.left-panel {
-  flex: 1; display: flex; flex-direction: column;
-  overflow-y: auto;
-}
+.left-panel { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
 
 /* 플레이어 */
-#player-wrap {
-  background: #000; overflow: hidden;
-  display: none; flex-shrink: 0;
-}
+#player-wrap { background: #000; overflow: hidden; display: none; flex-shrink: 0; }
 #player-wrap.visible { display: block; }
-#player-wrap iframe {
-  display: block; width: 100%; aspect-ratio: 16/9; border: none;
-}
+#player-wrap iframe { display: block; width: 100%; aspect-ratio: 16/9; border: none; }
 
 /* 컨트롤 바 */
 .control-bar {
-  background: #16213e;
-  padding: 10px 16px; display: flex; align-items: center;
-  gap: 10px; flex-wrap: wrap; flex-shrink: 0;
-  border-bottom: 1px solid #0f3460;
+  background: #16213e; padding: 10px 16px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  flex-shrink: 0; border-bottom: 1px solid #0f3460;
 }
 .now-playing {
   flex: 1; font-size: 0.85rem; color: #aaa;
@@ -90,12 +72,11 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 
 /* ── 그룹 탭 바 ── */
 .group-tabs {
-  display: flex; align-items: center; gap: 0;
+  display: flex; align-items: center;
   background: #16213e; border-bottom: 2px solid #0f3460;
   padding: 0 12px; overflow-x: auto; flex-shrink: 0;
 }
 .group-tab {
-  position: relative;
   background: none; border: none; color: #aaa;
   padding: 10px 14px; cursor: pointer; font-size: 0.85rem;
   border-bottom: 3px solid transparent; margin-bottom: -2px;
@@ -108,17 +89,14 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 }
 .group-tab:hover .tab-edit-icon { display: inline; }
 .group-tab .tab-edit-icon:hover { opacity: 1; }
-
 .add-group-btn {
   background: none; border: none; color: #555; padding: 10px 12px;
-  cursor: pointer; font-size: 0.85rem; white-space: nowrap;
-  transition: color 0.2s;
+  cursor: pointer; font-size: 0.85rem; white-space: nowrap; transition: color 0.2s;
 }
 .add-group-btn:hover { color: #e94560; }
 
 /* ── 런치패드 영역 ── */
 .launchpad-area { padding: 16px; flex: 1; }
-
 .launchpad-header {
   display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
 }
@@ -129,15 +107,22 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   border-radius: 4px; padding: 3px 6px;
 }
 
+/* 전체 보기 그룹 헤더 */
+.group-section-header {
+  font-size: 0.85rem; color: #e94560; font-weight: bold;
+  padding: 4px 0 8px; display: flex; align-items: center; gap: 8px;
+  margin-top: 20px;
+}
+.group-section-header:first-child { margin-top: 0; }
+.group-section-header::after { content: ''; flex: 1; height: 1px; background: #1a5276; }
+
 /* ── 섹션 구분자 (선발/벤치) ── */
 .section-divider {
-  font-size: 0.75rem; color: #e94560; font-weight: bold;
+  font-size: 0.75rem; color: #7f8c8d; font-weight: bold;
   padding: 6px 0 8px; letter-spacing: 0.05em;
   display: flex; align-items: center; gap: 8px;
 }
-.section-divider::after {
-  content: ''; flex: 1; height: 1px; background: #0f3460;
-}
+.section-divider::after { content: ''; flex: 1; height: 1px; background: #0f3460; }
 
 .launchpad-grid { display: grid; gap: 10px; margin-bottom: 16px; }
 
@@ -167,7 +152,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 .pad-btn.empty:hover { opacity: 0.6; }
 
 .pad-label { font-size: 0.82rem; font-weight: bold; line-height: 1.2; pointer-events: none; }
-.pad-time { font-size: 0.65rem; opacity: 0.7; margin-top: 4px; pointer-events: none; }
+.pad-time  { font-size: 0.65rem; opacity: 0.7; margin-top: 4px; pointer-events: none; }
 
 .pad-badge {
   position: absolute; top: 4px; left: 4px;
@@ -186,47 +171,47 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 .pad-btn:hover .pad-edit-btn { display: flex; }
 .pad-edit-btn:hover { color: #fff; background: rgba(0,0,0,0.7); }
 
-/* ── 선수 카드 (등장곡 있을 때) ── */
+/* ── 선수 카드 ── */
 .player-card {
   position: relative; border: 2px solid rgba(255,255,255,0.1);
   border-radius: 10px; overflow: hidden; cursor: default;
-  transition: border-color 0.2s;
-  display: flex; flex-direction: column;
-  aspect-ratio: 1;
+  transition: border-color 0.2s; display: flex; flex-direction: column; aspect-ratio: 1;
 }
 .player-card:hover { border-color: rgba(255,255,255,0.35); }
-.player-card.playing { border-color: #fff; box-shadow: 0 0 12px rgba(255,255,255,0.5); animation: pulse 1.2s ease-in-out infinite; }
-.player-card.entrance-playing { border-color: #f39c12; box-shadow: 0 0 12px rgba(243,156,18,0.7); }
+.player-card.playing {
+  border-color: #fff; box-shadow: 0 0 12px rgba(255,255,255,0.5);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.player-card.entrance-playing { border-color: #f39c12; box-shadow: 0 0 12px rgba(243,156,18,0.7); animation: pulseOrange 1.2s ease-in-out infinite; }
+@keyframes pulseOrange {
+  0%, 100% { box-shadow: 0 0 8px rgba(243,156,18,0.5); }
+  50%       { box-shadow: 0 0 18px rgba(243,156,18,0.9); }
+}
 
 .player-card-top {
   flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 6px 8px; text-align: center;
+  padding: 6px 8px; text-align: center; cursor: pointer;
 }
-.player-order-num {
-  font-size: 0.7rem; color: rgba(255,255,255,0.6);
-  font-weight: bold; align-self: flex-start;
-}
-.player-name {
-  font-size: 0.85rem; font-weight: bold; line-height: 1.2; margin-top: 2px;
-}
+.player-card-top:hover { filter: brightness(1.15); }
+.player-order-num { font-size: 0.7rem; color: rgba(255,255,255,0.6); font-weight: bold; align-self: flex-start; }
+.player-name { font-size: 0.85rem; font-weight: bold; line-height: 1.2; margin-top: 2px; }
+.player-chain-hint { font-size: 0.6rem; color: rgba(255,255,255,0.4); margin-top: 3px; }
 
 .player-card-actions {
-  display: flex; border-top: 1px solid rgba(255,255,255,0.15);
-  flex-shrink: 0;
+  display: flex; border-top: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;
 }
 .player-action-btn {
   flex: 1; background: rgba(0,0,0,0.3); border: none; color: #eee;
   padding: 7px 4px; cursor: pointer; font-size: 0.68rem;
   transition: background 0.15s; display: flex;
-  flex-direction: column; align-items: center; gap: 2px;
-  line-height: 1;
+  flex-direction: column; align-items: center; gap: 2px; line-height: 1;
 }
 .player-action-btn:hover { background: rgba(255,255,255,0.12); }
 .player-action-btn:active { background: rgba(255,255,255,0.22); }
 .player-action-btn + .player-action-btn { border-left: 1px solid rgba(255,255,255,0.1); }
-.player-action-btn.entrance-active { background: rgba(243,156,18,0.25); }
-.player-action-btn.cheer-active { background: rgba(46,204,113,0.25); }
+.player-action-btn.entrance-active { background: rgba(243,156,18,0.3); }
+.player-action-btn.cheer-active    { background: rgba(46,204,113,0.3); }
 
 .player-card .pad-edit-btn { display: none; }
 .player-card:hover .pad-edit-btn { display: flex; }
@@ -235,7 +220,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 .ctx-menu {
   position: fixed; background: #1e2d4a; border: 1px solid #0f3460;
   border-radius: 8px; padding: 6px 0; z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5); min-width: 140px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5); min-width: 160px;
 }
 .ctx-menu button {
   display: block; width: 100%; background: none; border: none;
@@ -250,10 +235,10 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   width: 300px; background: #16213e;
   border-left: 2px solid #0f3460; display: flex; flex-direction: column; overflow: hidden;
 }
-.panel-tab { display: flex; border-bottom: 2px solid #0f3460; }
+.panel-tab { display: flex; border-bottom: 2px solid #0f3460; overflow-x: auto; }
 .tab-btn {
-  flex: 1; background: none; border: none; color: #aaa; padding: 10px;
-  cursor: pointer; font-size: 0.82rem;
+  flex: 1; background: none; border: none; color: #aaa; padding: 10px 8px;
+  cursor: pointer; font-size: 0.75rem; white-space: nowrap;
   border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.2s;
 }
 .tab-btn.active { color: #e94560; border-bottom-color: #e94560; }
@@ -271,6 +256,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   padding: 7px 10px; font-size: 0.82rem; outline: none;
 }
 .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #e94560; }
+.form-group input.input-error { border-color: #e74c3c !important; }
 
 .color-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
 .color-swatch {
@@ -305,8 +291,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 .btn-danger:hover { background: #922b21; }
 
 .entrance-section {
-  border: 1px solid #1a5276; border-radius: 8px;
-  padding: 10px; margin-bottom: 12px;
+  border: 1px solid #1a5276; border-radius: 8px; padding: 10px; margin-bottom: 12px;
 }
 .entrance-toggle {
   display: flex; align-items: center; gap: 8px;
@@ -321,6 +306,12 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   font-size: 0.72rem; font-family: monospace; resize: vertical;
 }
 
+.parser-hint {
+  font-size: 0.73rem; color: #666; line-height: 1.55; margin-bottom: 10px;
+  background: #0f1f38; border-radius: 6px; padding: 8px 10px;
+}
+.parser-hint code { color: #7fdbff; font-family: monospace; }
+
 /* 토스트 */
 #toast {
   position: fixed; bottom: 24px; left: 50%;
@@ -330,10 +321,11 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   transition: opacity 0.3s, transform 0.3s; pointer-events: none; z-index: 9999;
 }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+#toast.err  { background: #922b21; }
 
 @media (max-width: 768px) {
   .main { flex-direction: column; }
-  .right-panel { width: 100%; border-left: none; border-top: 2px solid #0f3460; max-height: 360px; }
+  .right-panel { width: 100%; border-left: none; border-top: 2px solid #0f3460; max-height: 380px; }
 }
 </style>
 </head>
@@ -353,12 +345,10 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 <div class="main">
   <div class="left-panel">
 
-    <!-- 숨겨진 플레이어 -->
     <div id="player-wrap">
       <div id="player-container"></div>
     </div>
 
-    <!-- 컨트롤 바 -->
     <div class="control-bar">
       <div class="now-playing" id="now-playing">재생 대기 중...</div>
       <button class="ctrl-btn" onclick="ctrlPause()" title="일시정지">⏸</button>
@@ -369,14 +359,12 @@ input[type=range] { width: 80px; accent-color: #e94560; }
       <button class="toggle-btn" id="player-toggle" onclick="togglePlayer()">📺 영상 보기</button>
     </div>
 
-    <!-- 그룹 탭 바 -->
     <div class="group-tabs" id="group-tabs"></div>
 
-    <!-- 런치패드 영역 -->
     <div class="launchpad-area">
       <div class="launchpad-header">
         <h2 id="current-group-name">런치패드</h2>
-        <div class="grid-controls">
+        <div class="grid-controls" id="grid-controls">
           열: <select id="grid-cols" onchange="setGridCols(this.value)">
             <option value="3">3</option>
             <option value="4" selected>4</option>
@@ -393,11 +381,13 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   <!-- 오른쪽 편집 패널 -->
   <div class="right-panel">
     <div class="panel-tab">
-      <button class="tab-btn active" onclick="switchTab('edit')">버튼 편집</button>
-      <button class="tab-btn" onclick="switchTab('io')">가져오기/내보내기</button>
+      <button class="tab-btn active" data-tab="edit"   onclick="switchTab('edit')">버튼 편집</button>
+      <button class="tab-btn"        data-tab="parser" onclick="switchTab('parser')">⚡ 파서</button>
+      <button class="tab-btn"        data-tab="io"     onclick="switchTab('io')">가져오기/내보내기</button>
     </div>
     <div class="panel-body">
 
+      <!-- ── 버튼 편집 탭 ── -->
       <div class="tab-content active" id="tab-edit">
         <div id="edit-placeholder" style="color:#555;font-size:0.82rem;padding:20px 0;text-align:center;">
           버튼을 클릭하거나<br>✏ 아이콘을 눌러 편집하세요
@@ -412,14 +402,14 @@ input[type=range] { width: 80px; accent-color: #e94560; }
           </div>
           <div class="form-group">
             <label>소속 그룹</label>
-            <select id="edit-group"></select>
+            <select id="edit-group" onchange="onEditGroupChange()"></select>
           </div>
           <div class="form-group" id="edit-batting-order-group" style="display:none">
             <label>타순 (0=벤치, 1~9=선발)</label>
             <input type="number" id="edit-batting-order" min="0" max="9" placeholder="0">
           </div>
 
-          <div class="section-title" id="cheer-section-title">응원가</div>
+          <div class="section-title" id="cheer-section-title">재생 정보</div>
           <div class="form-group">
             <label>YouTube URL 또는 Video ID</label>
             <input type="text" id="edit-url" placeholder="https://youtu.be/xxxxx">
@@ -435,7 +425,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
             </div>
           </div>
 
-          <!-- 등장곡 섹션 (선수 그룹에서만 표시) -->
+          <!-- 등장곡 섹션 -->
           <div class="entrance-section" id="entrance-section" style="display:none">
             <label class="entrance-toggle">
               <input type="checkbox" id="entrance-enabled" onchange="toggleEntranceFields()">
@@ -464,10 +454,37 @@ input[type=range] { width: 80px; accent-color: #e94560; }
             <div class="color-row" id="color-swatches"></div>
           </div>
           <button class="btn-primary" onclick="saveEdit()">저장</button>
-          <button class="btn-danger" onclick="deleteButton()">이 버튼 삭제</button>
+          <button class="btn-danger"  onclick="deleteButton()">이 버튼 삭제</button>
         </div>
       </div>
 
+      <!-- ── 타임스탬프 파서 탭 ── -->
+      <div class="tab-content" id="tab-parser">
+        <div class="section-title">타임스탬프 파서</div>
+        <div class="parser-hint">
+          유튜브 댓글의 타임스탬프를 붙여넣으면<br>버튼을 자동 생성합니다.<br><br>
+          지원 형식:<br>
+          <code>0:30 이정후</code><br>
+          <code>0:30 - 1:10 강백호</code><br>
+          <code>0:30~1:10 김혜성 등장곡</code>
+        </div>
+        <div class="form-group">
+          <label>YouTube URL (선택 — 일괄 적용)</label>
+          <input type="text" id="parser-url" placeholder="https://youtu.be/xxxxx">
+        </div>
+        <div class="form-group">
+          <label>대상 그룹</label>
+          <select id="parser-group"></select>
+        </div>
+        <div class="form-group">
+          <label>타임스탬프 텍스트</label>
+          <textarea id="parser-text" style="height:160px;font-family:monospace;font-size:0.75rem;color:#7fdbff;background:#0a1628;resize:vertical"
+            placeholder="0:00 이정후&#10;0:45 강백호&#10;1:20 김혜성&#10;..."></textarea>
+        </div>
+        <button class="btn-primary" onclick="runParser()">버튼 생성</button>
+      </div>
+
+      <!-- ── 가져오기/내보내기 탭 ── -->
       <div class="tab-content" id="tab-io">
         <div class="section-title">JSON 내보내기</div>
         <div class="import-export-area">
@@ -487,9 +504,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   </div>
 </div>
 
-<!-- 컨텍스트 메뉴 -->
 <div class="ctx-menu" id="ctx-menu" style="display:none"></div>
-
 <div id="toast"></div>
 
 <script>
@@ -501,25 +516,24 @@ const COLORS = [
   '#1abc9c','#3498db','#9b59b6','#e91e63',
   '#ff5722','#00bcd4','#8bc34a','#607d8b',
 ];
+const ALL_TAB = '__all__';
+const DEFAULT_VIDEO = 'Ruk1rklBDX4';
 
 // ══════════════════════════════════════════════════
 // 상태
 // ══════════════════════════════════════════════════
-let config = { groups: [] };
-let currentGroupId  = null;
-let editingBtnId    = null;   // 현재 편집 중인 버튼 id
-let activeInfo      = null;   // { groupId, btnId }
-let pendingCheer    = null;   // { videoId, startSeconds, endSeconds, label } | null
-const popupSet      = new Set();
+let config       = { groups: [] };
+let currentGroupId = null;
+let editingBtnId   = null;
+let activeInfo     = null;   // { groupId, btnId, mode }
+let pendingCheer   = null;   // { videoId, startSeconds, endSeconds, label }
+const popupSet     = new Set();
 
-// iframe 플레이어
 let ytFrame    = null;
 let frameReady = false;
-
-// 팝업
 let popupWin   = null;
 let popupTimer = null;
-let popupChainFn = null; // 팝업 닫힌 후 실행할 콜백
+let popupChainFn = null;
 
 // ══════════════════════════════════════════════════
 // YouTube IFrame API
@@ -536,10 +550,11 @@ window.onYouTubeIframeAPIReady = function () {
       },
       onStateChange(e) {
         if (e.data === YT.PlayerState.ENDED) {
-          // 등장곡 체인 처리
           if (pendingCheer) {
             const cheer = pendingCheer;
             pendingCheer = null;
+            if (activeInfo) activeInfo.mode = 'cheer';
+            renderActiveState();
             playVideoById(cheer, cheer.label);
           } else {
             setActiveInfo(null);
@@ -552,17 +567,18 @@ window.onYouTubeIframeAPIReady = function () {
         if (activeInfo) {
           const btn = findBtn(activeInfo.groupId, activeInfo.btnId);
           if (btn && EMBED_BLOCKED.includes(e.data)) {
-            popupSet.add(btn.videoId);
+            const vid = activeInfo.mode === 'entrance' ? (btn.entrance && btn.entrance.videoId) : btn.videoId;
+            if (vid) popupSet.add(vid);
             renderAll();
-            openPopup(btn, pendingCheer ? () => {
+            const src = activeInfo.mode === 'entrance' ? btn.entrance : btn;
+            openPopup(src, pendingCheer ? () => {
               const cheer = pendingCheer; pendingCheer = null;
               openPopup(cheer, null);
-              setActiveInfo(activeInfo); // keep playing indicator
               updateNowPlaying(cheer.label + ' (팝업)');
             } : null);
             showToast('삽입 불가 영상 → YouTube 팝업으로 재생합니다');
           } else {
-            showToast(`재생 오류 (코드: ${e.data})`);
+            showToast(`재생 오류 (코드: ${e.data})`, true);
           }
         }
         pendingCheer = null;
@@ -586,12 +602,11 @@ function openPopup(btnData, chainCb) {
   clearTimeout(popupTimer);
   popupChainFn = chainCb || null;
   try { if (popupWin && !popupWin.closed) popupWin.close(); } catch (_) {}
-
   const start = Math.floor(btnData.startSeconds || 0);
-  const url   = `https://www.youtube.com/watch?v=${btnData.videoId}&t=${start}s`;
-  popupWin = window.open(url, 'yt-popup',
-    'width=900,height=540,toolbar=0,menubar=0,location=1,resizable=1');
-
+  popupWin = window.open(
+    `https://www.youtube.com/watch?v=${btnData.videoId}&t=${start}s`,
+    'yt-popup', 'width=900,height=540,toolbar=0,menubar=0,location=1,resizable=1'
+  );
   const dur = (btnData.endSeconds || 0) - start;
   if (dur > 0) {
     popupTimer = setTimeout(() => {
@@ -608,13 +623,11 @@ function openPopup(btnData, chainCb) {
 function ctrlPause() { if (frameReady) ytFrame.pauseVideo(); }
 
 function ctrlStop() {
-  pendingCheer = null;
-  popupChainFn = null;
+  pendingCheer = null; popupChainFn = null;
   if (frameReady) ytFrame.stopVideo();
   clearTimeout(popupTimer);
   try { if (popupWin && !popupWin.closed) popupWin.close(); } catch (_) {}
-  setActiveInfo(null);
-  updateNowPlaying(null);
+  setActiveInfo(null); updateNowPlaying(null);
 }
 
 function ctrlVolume(v) { if (frameReady) ytFrame.setVolume(parseInt(v)); }
@@ -652,30 +665,62 @@ function handlePadClick(groupId, btnId) {
   pendingCheer = null;
   openEditPanelByBtn(groupId, btnId);
   if (!btn.videoId) { showToast('먼저 YouTube URL을 설정하세요.'); return; }
-  setActiveInfo({ groupId, btnId });
+  setActiveInfo({ groupId, btnId, mode: 'cheer' });
   playVideoById(btn, btn.label);
 }
 
-// ── 등장곡 클릭 ──
+// ── 카드 이름 클릭 → 등장→응원 체인 (또는 병합) ──
+function handleChainClick(groupId, btnId) {
+  const btn = findBtn(groupId, btnId);
+  if (!btn) return;
+
+  if (!btn.entrance || !btn.entrance.videoId) {
+    // 등장곡 없음 → 응원가만
+    if (!btn.videoId) { showToast('먼저 YouTube URL을 설정하세요.'); return; }
+    pendingCheer = null;
+    setActiveInfo({ groupId, btnId, mode: 'cheer' });
+    playVideoById(btn, btn.label);
+    return;
+  }
+
+  // 병합 조건: 같은 영상 + 구간 간격 1초 이하
+  const gapOk = btn.entrance.videoId === btn.videoId &&
+    Math.abs((btn.entrance.endSeconds || 0) - (btn.startSeconds || 0)) <= 1;
+
+  if (gapOk) {
+    pendingCheer = null;
+    setActiveInfo({ groupId, btnId, mode: 'cheer' });
+    playVideoById({
+      videoId:      btn.videoId,
+      startSeconds: btn.entrance.startSeconds,
+      endSeconds:   btn.endSeconds,
+    }, btn.label);
+  } else {
+    // 체인: 등장 → 응원
+    pendingCheer = { videoId: btn.videoId, startSeconds: btn.startSeconds, endSeconds: btn.endSeconds, label: btn.label };
+    setActiveInfo({ groupId, btnId, mode: 'entrance' });
+    playVideoById(btn.entrance, btn.label + ' (등장)');
+  }
+}
+
+// ── 등장 버튼 클릭 ──
 function handleEntranceClick(groupId, btnId) {
   const btn = findBtn(groupId, btnId);
   if (!btn || !btn.entrance || !btn.entrance.videoId) {
-    handleCheerClick(groupId, btnId); return;
+    handleChainClick(groupId, btnId); return;
   }
   pendingCheer = { videoId: btn.videoId, startSeconds: btn.startSeconds, endSeconds: btn.endSeconds, label: btn.label };
   setActiveInfo({ groupId, btnId, mode: 'entrance' });
   playVideoById(btn.entrance, btn.label + ' (등장)');
-  renderAll();
 }
 
-// ── 응원가 클릭 ──
+// ── 응원 버튼 클릭 ──
 function handleCheerClick(groupId, btnId) {
   const btn = findBtn(groupId, btnId);
   if (!btn || !btn.videoId) { showToast('먼저 YouTube URL을 설정하세요.'); return; }
   pendingCheer = null;
   setActiveInfo({ groupId, btnId, mode: 'cheer' });
   playVideoById(btn, btn.label);
-  renderAll();
 }
 
 function setActiveInfo(info) {
@@ -684,17 +729,17 @@ function setActiveInfo(info) {
 }
 
 function renderActiveState() {
-  document.querySelectorAll('.pad-btn, .player-card').forEach(el => {
+  document.querySelectorAll('.pad-btn[data-bid], .player-card').forEach(el => {
     const gid = el.dataset.gid, bid = el.dataset.bid;
-    const isActive = activeInfo && activeInfo.groupId === gid && activeInfo.btnId === bid;
-    el.classList.toggle('playing', isActive && activeInfo.mode !== 'entrance');
-    el.classList.toggle('entrance-playing', isActive && activeInfo.mode === 'entrance');
+    const active = activeInfo && activeInfo.groupId === gid && activeInfo.btnId === bid;
+    el.classList.toggle('playing',         active && activeInfo.mode !== 'entrance');
+    el.classList.toggle('entrance-playing', active && activeInfo.mode === 'entrance');
   });
   document.querySelectorAll('.player-action-btn').forEach(el => {
-    const gid = el.dataset.gid, bid = el.dataset.bid, mode = el.dataset.mode;
-    const isActive = activeInfo && activeInfo.groupId === gid && activeInfo.btnId === bid && activeInfo.mode === mode;
-    el.classList.toggle('entrance-active', mode === 'entrance' && isActive);
-    el.classList.toggle('cheer-active', mode === 'cheer' && isActive);
+    const active = activeInfo && activeInfo.groupId === el.dataset.gid &&
+                   activeInfo.btnId === el.dataset.bid && activeInfo.mode === el.dataset.mode;
+    el.classList.toggle('entrance-active', el.dataset.mode === 'entrance' && active);
+    el.classList.toggle('cheer-active',    el.dataset.mode === 'cheer'    && active);
   });
 }
 
@@ -707,14 +752,8 @@ function updateNowPlaying(label) {
 // 데이터 헬퍼
 // ══════════════════════════════════════════════════
 function uid() { return Math.random().toString(36).slice(2, 10); }
-
 function findGroup(gid) { return config.groups.find(g => g.id === gid); }
-
-function findBtn(gid, bid) {
-  const g = findGroup(gid);
-  return g ? g.buttons.find(b => b.id === bid) : null;
-}
-
+function findBtn(gid, bid) { const g = findGroup(gid); return g ? g.buttons.find(b => b.id === bid) : null; }
 function currentGroup() { return findGroup(currentGroupId); }
 
 // ══════════════════════════════════════════════════
@@ -726,17 +765,10 @@ async function loadConfig() {
     if (res.ok) {
       const remote = await res.json();
       if (remote && Array.isArray(remote.groups)) {
-        config = remote;
-        initCurrentGroup();
-        renderAll();
-        return;
+        config = remote; initCurrentGroup(); renderAll(); return;
       }
-      // 구버전 포맷 (buttons 배열)
       if (remote && Array.isArray(remote.buttons)) {
-        config = migrateLegacy(remote);
-        initCurrentGroup();
-        renderAll();
-        return;
+        config = migrateLegacy(remote); initCurrentGroup(); renderAll(); return;
       }
     }
   } catch (_) {}
@@ -744,17 +776,13 @@ async function loadConfig() {
   try {
     const s = localStorage.getItem('baseball-launchpad');
     if (s) {
-      const parsed = JSON.parse(s);
-      if (parsed.groups) config = parsed;
-      else if (parsed.buttons) config = migrateLegacy(parsed);
+      const p = JSON.parse(s);
+      config = p.groups ? p : migrateLegacy(p);
     }
   } catch (_) {}
 
-  if (!config.groups || !config.groups.length) {
-    config = defaultConfig();
-  }
-  initCurrentGroup();
-  renderAll();
+  if (!config.groups || !config.groups.length) config = defaultConfig();
+  initCurrentGroup(); renderAll();
 }
 
 function migrateLegacy(old) {
@@ -773,7 +801,7 @@ function defaultConfig() {
       {
         id: uid(), name: '팀 응원가', type: 'general', gridCols: 4,
         buttons: [
-          { id: uid(), label: '응원 시작!', videoId: 'dQw4w9WgXcQ', startSeconds: 0, endSeconds: 30, color: '#e74c3c' }
+          { id: uid(), label: '응원 시작!', videoId: DEFAULT_VIDEO, startSeconds: 0, endSeconds: 30, color: '#e74c3c' }
         ]
       },
       {
@@ -783,19 +811,16 @@ function defaultConfig() {
           { id: uid(), label: '김혜성', battingOrder: 2, videoId: '', startSeconds: 0, endSeconds: 30, color: '#2ecc71' },
         ]
       },
-      {
-        id: uid(), name: '상황별', type: 'general', gridCols: 4,
-        buttons: []
-      }
+      { id: uid(), name: '상황별', type: 'general', gridCols: 4, buttons: [] }
     ]
   };
 }
 
 function initCurrentGroup() {
+  if (currentGroupId === ALL_TAB) return;
   if (!config.groups.length) return;
-  if (!currentGroupId || !findGroup(currentGroupId)) {
+  if (!currentGroupId || !findGroup(currentGroupId))
     currentGroupId = config.groups[0].id;
-  }
 }
 
 function saveConfig() { localStorage.setItem('baseball-launchpad', JSON.stringify(config)); }
@@ -806,11 +831,22 @@ function saveConfig() { localStorage.setItem('baseball-launchpad', JSON.stringif
 function renderAll() {
   renderTabs();
   renderGrid();
+  // 파서 탭 그룹 목록도 최신화
+  if (document.getElementById('tab-parser').classList.contains('active')) {
+    populateParserGroupSelect();
+  }
 }
 
 function renderTabs() {
   const bar = document.getElementById('group-tabs');
   bar.innerHTML = '';
+
+  // 전체 탭
+  const allTab = document.createElement('button');
+  allTab.className = 'group-tab' + (currentGroupId === ALL_TAB ? ' active' : '');
+  allTab.textContent = '전체';
+  allTab.onclick = () => { currentGroupId = ALL_TAB; renderAll(); };
+  bar.appendChild(allTab);
 
   config.groups.forEach(g => {
     const tab = document.createElement('button');
@@ -818,12 +854,8 @@ function renderTabs() {
     tab.dataset.gid = g.id;
     tab.innerHTML = `${escHtml(g.name)} <span class="tab-edit-icon" title="탭 편집">⋯</span>`;
     tab.onclick = e => {
-      if (e.target.classList.contains('tab-edit-icon')) {
-        showTabContextMenu(e, g.id);
-      } else {
-        currentGroupId = g.id;
-        renderAll();
-      }
+      if (e.target.classList.contains('tab-edit-icon')) showTabContextMenu(e, g.id);
+      else { currentGroupId = g.id; renderAll(); }
     };
     tab.oncontextmenu = e => { e.preventDefault(); showTabContextMenu(e, g.id); };
     bar.appendChild(tab);
@@ -837,41 +869,51 @@ function renderTabs() {
 }
 
 function renderGrid() {
-  const g = currentGroup();
   const content = document.getElementById('launchpad-content');
+  const gcCtrl  = document.getElementById('grid-controls');
   content.innerHTML = '';
 
-  if (!g) {
-    document.getElementById('current-group-name').textContent = '런치패드';
-    document.getElementById('grid-cols').value = 4;
+  if (currentGroupId === ALL_TAB) {
+    document.getElementById('current-group-name').textContent = '전체 보기';
+    gcCtrl.style.visibility = 'hidden';
+    renderAllGroupsView(content);
     return;
   }
 
-  document.getElementById('current-group-name').textContent = g.name;
-  const cols = g.gridCols || 4;
-  document.getElementById('grid-cols').value = cols;
+  gcCtrl.style.visibility = 'visible';
+  const g = currentGroup();
+  if (!g) { document.getElementById('current-group-name').textContent = '런치패드'; return; }
 
-  if (g.type === 'players') {
-    renderPlayerGroup(g, content, cols);
-  } else {
-    renderGeneralGroup(g, content, cols);
-  }
+  document.getElementById('current-group-name').textContent = g.name;
+  document.getElementById('grid-cols').value = g.gridCols || 4;
+
+  if (g.type === 'players') renderPlayerGroup(g, content, g.gridCols || 4);
+  else renderGeneralGroup(g, content, g.gridCols || 4);
+}
+
+function renderAllGroupsView(container) {
+  config.groups.forEach((g, idx) => {
+    const hdr = document.createElement('div');
+    hdr.className = 'group-section-header';
+    hdr.textContent = g.name + (g.type === 'players' ? ' · 선수' : '');
+    container.appendChild(hdr);
+
+    const cols = g.gridCols || 4;
+    if (g.type === 'players') renderPlayerGroup(g, container, cols);
+    else renderGeneralGroup(g, container, cols);
+  });
 }
 
 function renderGeneralGroup(g, container, cols) {
   const grid = document.createElement('div');
   grid.className = 'launchpad-grid';
   grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-
   g.buttons.forEach(btn => grid.appendChild(makePad(btn, g.id)));
 
   const add = document.createElement('button');
-  add.className = 'pad-btn empty';
-  add.title = '새 버튼 추가';
-  add.textContent = '+';
-  add.onclick = () => addButtonToCurrentGroup();
+  add.className = 'pad-btn empty'; add.title = '새 버튼 추가'; add.textContent = '+';
+  add.onclick = () => { currentGroupId = g.id; addButtonToCurrentGroup(); };
   grid.appendChild(add);
-
   container.appendChild(grid);
 }
 
@@ -879,7 +921,6 @@ function renderPlayerGroup(g, container, cols) {
   const starters = g.buttons.filter(b => b.battingOrder > 0).sort((a, b) => a.battingOrder - b.battingOrder);
   const bench    = g.buttons.filter(b => !b.battingOrder || b.battingOrder === 0);
 
-  // 선발
   const divS = document.createElement('div');
   divS.className = 'section-divider';
   divS.textContent = `선발 (${starters.length}명)`;
@@ -891,17 +932,13 @@ function renderPlayerGroup(g, container, cols) {
   starters.forEach(btn => gridS.appendChild(makePlayerCard(btn, g.id)));
 
   const addS = document.createElement('button');
-  addS.className = 'pad-btn empty';
-  addS.title = '선수 추가';
-  addS.textContent = '+';
-  addS.onclick = () => addButtonToCurrentGroup();
+  addS.className = 'pad-btn empty'; addS.title = '선수 추가'; addS.textContent = '+';
+  addS.onclick = () => { currentGroupId = g.id; addButtonToCurrentGroup(); };
   gridS.appendChild(addS);
   container.appendChild(gridS);
 
-  // 벤치
   const divB = document.createElement('div');
-  divB.className = 'section-divider';
-  divB.style.marginTop = '12px';
+  divB.className = 'section-divider'; divB.style.marginTop = '12px';
   divB.textContent = `벤치 (${bench.length}명)`;
   container.appendChild(divB);
 
@@ -914,19 +951,17 @@ function renderPlayerGroup(g, container, cols) {
 
 // ── 일반 패드 ──
 function makePad(btn, gid) {
-  const isPopup = btn.videoId && popupSet.has(btn.videoId);
+  const isPopup  = btn.videoId && popupSet.has(btn.videoId);
   const isActive = activeInfo && activeInfo.groupId === gid && activeInfo.btnId === btn.id;
 
   const el = document.createElement('button');
-  el.className = 'pad-btn' + (isActive ? ' playing' : '') + (isPopup ? ' popup-mode' : '');
+  el.className = 'pad-btn' + (isActive && activeInfo.mode !== 'entrance' ? ' playing' : '');
   el.style.background = btn.color || '#2c3e50';
-  el.dataset.gid = gid;
-  el.dataset.bid = btn.id;
+  el.dataset.gid = gid; el.dataset.bid = btn.id;
 
   if (isPopup) {
     const b = document.createElement('div');
-    b.className = 'pad-badge popup'; b.textContent = '팝업재생';
-    el.appendChild(b);
+    b.className = 'pad-badge popup'; b.textContent = '팝업재생'; el.appendChild(b);
   }
 
   const label = document.createElement('div');
@@ -939,8 +974,7 @@ function makePad(btn, gid) {
     time.textContent = `${fmt(btn.startSeconds)} – ${fmt(btn.endSeconds)}`;
 
   const edit = document.createElement('button');
-  edit.className = 'pad-edit-btn';
-  edit.title = '편집'; edit.textContent = '✏';
+  edit.className = 'pad-edit-btn'; edit.title = '편집'; edit.textContent = '✏';
   edit.onclick = e => { e.stopPropagation(); openEditPanelByBtn(gid, btn.id); };
 
   el.append(label, time, edit);
@@ -950,62 +984,66 @@ function makePad(btn, gid) {
 
 // ── 선수 카드 ──
 function makePlayerCard(btn, gid) {
-  const hasEntrance = btn.entrance && btn.entrance.videoId;
-  const isActive = activeInfo && activeInfo.groupId === gid && activeInfo.btnId === btn.id;
-  const isEntrance = isActive && activeInfo.mode === 'entrance';
-  const isCheer    = isActive && activeInfo.mode === 'cheer';
+  const hasEntrance = !!(btn.entrance && btn.entrance.videoId);
+  const isActive    = activeInfo && activeInfo.groupId === gid && activeInfo.btnId === btn.id;
+  const isEntrance  = isActive && activeInfo.mode === 'entrance';
+  const isCheer     = isActive && (activeInfo.mode === 'cheer' || activeInfo.mode == null);
 
+  // 등장곡 없으면 일반 패드
   if (!hasEntrance) {
-    // 등장곡 없으면 일반 패드처럼
     const pad = makePad(btn, gid);
     if (btn.battingOrder) {
-      const order = document.createElement('div');
-      order.className = 'pad-badge order';
-      order.textContent = btn.battingOrder;
-      pad.insertBefore(order, pad.firstChild);
+      const ord = document.createElement('div');
+      ord.className = 'pad-badge order'; ord.textContent = btn.battingOrder;
+      pad.insertBefore(ord, pad.firstChild);
     }
     return pad;
   }
 
   const card = document.createElement('div');
-  card.className = 'player-card' + (isEntrance ? ' entrance-playing' : '') + (isCheer ? ' playing' : '');
+  card.className = 'player-card' +
+    (isEntrance ? ' entrance-playing' : '') + (isCheer ? ' playing' : '');
   card.style.background = btn.color || '#2c3e50';
-  card.dataset.gid = gid;
-  card.dataset.bid = btn.id;
+  card.dataset.gid = gid; card.dataset.bid = btn.id;
 
   const top = document.createElement('div');
   top.className = 'player-card-top';
+  top.title = '클릭: 등장→응원 자동 연결';
 
   const orderEl = document.createElement('div');
   orderEl.className = 'player-order-num';
-  orderEl.textContent = btn.battingOrder ? btn.battingOrder : '';
+  orderEl.textContent = btn.battingOrder || '';
 
   const nameEl = document.createElement('div');
   nameEl.className = 'player-name';
   nameEl.textContent = btn.label || '(이름 없음)';
 
-  top.append(orderEl, nameEl);
+  const hint = document.createElement('div');
+  hint.className = 'player-chain-hint';
+  hint.textContent = '▶ 등장→응원';
+
+  top.append(orderEl, nameEl, hint);
+  top.onclick = () => handleChainClick(gid, btn.id);
 
   const actions = document.createElement('div');
   actions.className = 'player-card-actions';
 
-  const entranceBtn = document.createElement('button');
-  entranceBtn.className = 'player-action-btn' + (isEntrance ? ' entrance-active' : '');
-  entranceBtn.dataset.gid = gid; entranceBtn.dataset.bid = btn.id; entranceBtn.dataset.mode = 'entrance';
-  entranceBtn.innerHTML = '<span>🎵</span><span>등장</span>';
-  entranceBtn.onclick = e => { e.stopPropagation(); handleEntranceClick(gid, btn.id); };
+  const entBtn = document.createElement('button');
+  entBtn.className = 'player-action-btn' + (isEntrance ? ' entrance-active' : '');
+  entBtn.dataset.gid = gid; entBtn.dataset.bid = btn.id; entBtn.dataset.mode = 'entrance';
+  entBtn.innerHTML = '<span>🎵</span><span>등장</span>';
+  entBtn.onclick = e => { e.stopPropagation(); handleEntranceClick(gid, btn.id); };
 
-  const cheerBtn = document.createElement('button');
-  cheerBtn.className = 'player-action-btn' + (isCheer ? ' cheer-active' : '');
-  cheerBtn.dataset.gid = gid; cheerBtn.dataset.bid = btn.id; cheerBtn.dataset.mode = 'cheer';
-  cheerBtn.innerHTML = '<span>⚾</span><span>응원</span>';
-  cheerBtn.onclick = e => { e.stopPropagation(); handleCheerClick(gid, btn.id); };
+  const cheBtn = document.createElement('button');
+  cheBtn.className = 'player-action-btn' + (isCheer ? ' cheer-active' : '');
+  cheBtn.dataset.gid = gid; cheBtn.dataset.bid = btn.id; cheBtn.dataset.mode = 'cheer';
+  cheBtn.innerHTML = '<span>⚾</span><span>응원</span>';
+  cheBtn.onclick = e => { e.stopPropagation(); handleCheerClick(gid, btn.id); };
 
-  actions.append(entranceBtn, cheerBtn);
+  actions.append(entBtn, cheBtn);
 
   const edit = document.createElement('button');
-  edit.className = 'pad-edit-btn';
-  edit.title = '편집'; edit.textContent = '✏';
+  edit.className = 'pad-edit-btn'; edit.title = '편집'; edit.textContent = '✏';
   edit.onclick = e => { e.stopPropagation(); openEditPanelByBtn(gid, btn.id); };
 
   card.append(top, actions, edit);
@@ -1016,7 +1054,6 @@ function fmt(sec) {
   if (sec == null || isNaN(sec)) return '?';
   return `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, '0')}`;
 }
-
 function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
@@ -1028,28 +1065,22 @@ function showTabContextMenu(e, gid) {
   e.preventDefault();
   const menu = document.getElementById('ctx-menu');
   menu.innerHTML = '';
-
-  const btnRename = document.createElement('button');
-  btnRename.textContent = '✏ 이름 변경';
-  btnRename.onclick = () => { hideCtxMenu(); renameGroup(gid); };
-
-  const btnType = document.createElement('button');
   const g = findGroup(gid);
-  btnType.textContent = g.type === 'players' ? '🔄 일반 그룹으로 변경' : '🔄 선수 그룹으로 변경';
-  btnType.onclick = () => { hideCtxMenu(); toggleGroupType(gid); };
 
-  const btnDel = document.createElement('button');
-  btnDel.className = 'danger';
-  btnDel.textContent = '🗑 그룹 삭제';
-  btnDel.onclick = () => { hideCtxMenu(); deleteGroup(gid); };
+  const mk = (text, cls, fn) => {
+    const b = document.createElement('button');
+    b.textContent = text; if (cls) b.className = cls;
+    b.onclick = () => { hideCtxMenu(); fn(); };
+    menu.appendChild(b);
+  };
 
-  menu.append(btnRename, btnType, btnDel);
+  mk('✏ 이름 변경', '', () => renameGroup(gid));
+  mk(g.type === 'players' ? '🔄 일반 그룹으로 변경' : '🔄 선수 그룹으로 변경', '', () => toggleGroupType(gid));
+  mk('🗑 그룹 삭제', 'danger', () => deleteGroup(gid));
 
   menu.style.display = 'block';
   menu.style.left = e.clientX + 'px';
   menu.style.top  = e.clientY + 'px';
-
-  // 화면 경계 처리
   requestAnimationFrame(() => {
     const r = menu.getBoundingClientRect();
     if (r.right  > window.innerWidth)  menu.style.left = (window.innerWidth  - r.width  - 4) + 'px';
@@ -1057,10 +1088,7 @@ function showTabContextMenu(e, gid) {
   });
 }
 
-function hideCtxMenu() {
-  document.getElementById('ctx-menu').style.display = 'none';
-}
-
+function hideCtxMenu() { document.getElementById('ctx-menu').style.display = 'none'; }
 document.addEventListener('click', hideCtxMenu);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { hideCtxMenu(); ctrlStop(); } });
 
@@ -1078,8 +1106,7 @@ function addGroup() {
 }
 
 function renameGroup(gid) {
-  const g = findGroup(gid);
-  if (!g) return;
+  const g = findGroup(gid); if (!g) return;
   const name = prompt('새 그룹 이름:', g.name);
   if (!name) return;
   g.name = name.trim();
@@ -1087,8 +1114,7 @@ function renameGroup(gid) {
 }
 
 function toggleGroupType(gid) {
-  const g = findGroup(gid);
-  if (!g) return;
+  const g = findGroup(gid); if (!g) return;
   g.type = g.type === 'players' ? 'general' : 'players';
   saveConfig(); renderAll();
   showToast(`'${g.name}' 그룹 타입이 변경되었습니다.`);
@@ -1108,7 +1134,7 @@ function deleteGroup(gid) {
 // 버튼 관리
 // ══════════════════════════════════════════════════
 function addButtonToCurrentGroup() {
-  const g = currentGroup();
+  const g = (currentGroupId === ALL_TAB) ? config.groups[0] : currentGroup();
   if (!g) return;
   const isPlayers = g.type === 'players';
   const newBtn = {
@@ -1119,6 +1145,7 @@ function addButtonToCurrentGroup() {
   };
   if (isPlayers) newBtn.battingOrder = 0;
   g.buttons.push(newBtn);
+  if (currentGroupId === ALL_TAB) currentGroupId = g.id;
   saveConfig(); renderAll();
   openEditPanelByBtn(g.id, newBtn.id);
   showToast('새 버튼이 추가되었습니다.');
@@ -1128,8 +1155,7 @@ function addButtonToCurrentGroup() {
 // 편집 패널
 // ══════════════════════════════════════════════════
 function openEditPanelByBtn(gid, bid) {
-  const btn = findBtn(gid, bid);
-  if (!btn) return;
+  const btn = findBtn(gid, bid); if (!btn) return;
   editingBtnId = bid;
   const g = findGroup(gid);
 
@@ -1151,18 +1177,13 @@ function openEditPanelByBtn(gid, bid) {
     sel.appendChild(opt);
   });
 
-  // 타순 + 등장곡 (선수 그룹)
-  const isPlayers = g && g.type === 'players';
-  document.getElementById('edit-batting-order-group').style.display = isPlayers ? '' : 'none';
-  document.getElementById('entrance-section').style.display = isPlayers ? '' : 'none';
-  document.getElementById('cheer-section-title').textContent = isPlayers ? '응원가' : '재생 정보';
-
-  if (isPlayers) {
+  updatePlayerFields(g);
+  if (g && g.type === 'players') {
     document.getElementById('edit-batting-order').value = btn.battingOrder ?? 0;
-    const hasEntrance = !!(btn.entrance && btn.entrance.videoId);
-    document.getElementById('entrance-enabled').checked = hasEntrance;
-    document.getElementById('entrance-fields').style.display = hasEntrance ? '' : 'none';
-    if (hasEntrance) {
+    const hasE = !!(btn.entrance && btn.entrance.videoId);
+    document.getElementById('entrance-enabled').checked = hasE;
+    document.getElementById('entrance-fields').style.display = hasE ? '' : 'none';
+    if (hasE) {
       document.getElementById('entrance-url').value   = btn.entrance.videoId || '';
       document.getElementById('entrance-start').value = btn.entrance.startSeconds != null ? fmt(btn.entrance.startSeconds) : '';
       document.getElementById('entrance-end').value   = btn.entrance.endSeconds   != null ? fmt(btn.entrance.endSeconds)   : '';
@@ -1177,9 +1198,26 @@ function openEditPanelByBtn(gid, bid) {
   switchTab('edit');
 }
 
+// 그룹 드롭다운 변경 시 선수 필드 표시 여부 업데이트
+function onEditGroupChange() {
+  const gid = document.getElementById('edit-group').value;
+  updatePlayerFields(findGroup(gid));
+}
+
+function updatePlayerFields(g) {
+  const isPlayers = !!(g && g.type === 'players');
+  document.getElementById('edit-batting-order-group').style.display = isPlayers ? '' : 'none';
+  document.getElementById('entrance-section').style.display         = isPlayers ? '' : 'none';
+  document.getElementById('cheer-section-title').textContent        = isPlayers ? '응원가' : '재생 정보';
+  if (!isPlayers) {
+    document.getElementById('entrance-enabled').checked = false;
+    document.getElementById('entrance-fields').style.display = 'none';
+  }
+}
+
 function toggleEntranceFields() {
-  const enabled = document.getElementById('entrance-enabled').checked;
-  document.getElementById('entrance-fields').style.display = enabled ? '' : 'none';
+  document.getElementById('entrance-fields').style.display =
+    document.getElementById('entrance-enabled').checked ? '' : 'none';
 }
 
 function renderSwatches(selected) {
@@ -1197,29 +1235,39 @@ function renderSwatches(selected) {
   });
 }
 
+// ── 저장 (검증 포함) ──
 function saveEdit() {
   if (!editingBtnId) return;
 
   const targetGid = document.getElementById('edit-group').value;
-  const label    = document.getElementById('edit-label').value.trim();
-  const urlInput = document.getElementById('edit-url').value.trim();
-  const startRaw = document.getElementById('edit-start').value.trim();
-  const endRaw   = document.getElementById('edit-end').value.trim();
-  const colorEl  = document.querySelector('.color-swatch.selected');
+  const label     = document.getElementById('edit-label').value.trim();
+  const urlInput  = document.getElementById('edit-url').value.trim();
+  const startRaw  = document.getElementById('edit-start').value.trim();
+  const endRaw    = document.getElementById('edit-end').value.trim();
+  const colorEl   = document.querySelector('.color-swatch.selected');
 
-  if (!label)    { showToast('이름을 입력하세요.'); return; }
+  if (!label) { showToast('이름을 입력하세요.', true); return; }
+
+  // 중복 이름 검사 (같은 그룹 내)
+  const targetGroup = findGroup(targetGid);
+  if (targetGroup) {
+    const dup = targetGroup.buttons.find(b => b.id !== editingBtnId && b.label === label);
+    if (dup) { showToast(`'${label}'은(는) 이미 같은 그룹에 있습니다.`, true); return; }
+  }
 
   const videoId = urlInput ? parseVideoId(urlInput) : '';
-  if (urlInput && !videoId) { showToast('올바른 YouTube URL이 아닙니다.'); return; }
+  if (urlInput && !videoId) { showToast('올바른 YouTube URL이 아닙니다.', true); return; }
 
   const start = parseTime(startRaw);
   const end   = parseTime(endRaw);
-  if (start == null) { showToast('시작 시간 형식 오류'); return; }
-  if (end != null && end > 0 && end <= start) { showToast('종료 시간은 시작 시간보다 커야 합니다.'); return; }
+  if (start == null) { showToast('시작 시간 형식 오류 (예: 1:30)', true); return; }
+  if (end == null)   { showToast('종료 시간 형식 오류 (예: 2:00)', true); return; }
+  if (end <= start)  { showToast('종료 시간은 시작 시간보다 커야 합니다.', true); return; }
+  if (end - start < 1) { showToast('구간이 너무 짧습니다 (최소 1초 이상).', true); return; }
+  if (end - start > 600 && !confirm(`구간이 ${Math.round((end-start)/60)}분입니다. 계속하시겠습니까?`)) return;
 
-  // 현재 그룹 찾기
-  let srcGroup = null;
-  let btn = null;
+  // 현재 그룹에서 버튼 찾기
+  let srcGroup = null, btn = null;
   for (const g of config.groups) {
     const b = g.buttons.find(b => b.id === editingBtnId);
     if (b) { srcGroup = g; btn = b; break; }
@@ -1227,35 +1275,29 @@ function saveEdit() {
   if (!btn) return;
 
   if (btn.videoId !== videoId) popupSet.delete(btn.videoId);
-
-  btn.label        = label;
-  btn.videoId      = videoId;
-  btn.startSeconds = start;
-  btn.endSeconds   = end;
+  btn.label = label; btn.videoId = videoId;
+  btn.startSeconds = start; btn.endSeconds = end;
   if (colorEl) btn.color = colorEl.style.background;
 
-  // 타순
-  const targetGroup = findGroup(targetGid);
   if (targetGroup && targetGroup.type === 'players') {
     btn.battingOrder = parseInt(document.getElementById('edit-batting-order').value) || 0;
-    // 등장곡
-    const entranceEnabled = document.getElementById('entrance-enabled').checked;
-    if (entranceEnabled) {
+    if (document.getElementById('entrance-enabled').checked) {
       const eUrl   = document.getElementById('entrance-url').value.trim();
       const eStart = parseTime(document.getElementById('entrance-start').value.trim());
       const eEnd   = parseTime(document.getElementById('entrance-end').value.trim());
       const eVid   = eUrl ? parseVideoId(eUrl) : null;
       if (eVid) {
+        if (eEnd != null && eStart != null && eEnd <= eStart) {
+          showToast('등장곡: 종료 시간은 시작 시간보다 커야 합니다.', true); return;
+        }
+        if (eEnd != null && eStart != null && eEnd - eStart < 1) {
+          showToast('등장곡 구간이 너무 짧습니다.', true); return;
+        }
         btn.entrance = { videoId: eVid, startSeconds: eStart || 0, endSeconds: eEnd };
-      } else {
-        delete btn.entrance;
-      }
-    } else {
-      delete btn.entrance;
-    }
+      } else { delete btn.entrance; }
+    } else { delete btn.entrance; }
   } else {
-    delete btn.battingOrder;
-    delete btn.entrance;
+    delete btn.battingOrder; delete btn.entrance;
   }
 
   // 그룹 이동
@@ -1277,12 +1319,95 @@ function deleteButton() {
     const idx = g.buttons.findIndex(b => b.id === editingBtnId);
     if (idx !== -1) { g.buttons.splice(idx, 1); break; }
   }
-  if (activeInfo && activeInfo.btnId === editingBtnId) { ctrlStop(); }
+  if (activeInfo && activeInfo.btnId === editingBtnId) ctrlStop();
   editingBtnId = null;
   saveConfig(); renderAll();
   document.getElementById('edit-placeholder').style.display = '';
   document.getElementById('edit-form').style.display = 'none';
   showToast('삭제되었습니다.');
+}
+
+// ══════════════════════════════════════════════════
+// 타임스탬프 파서
+// ══════════════════════════════════════════════════
+function populateParserGroupSelect() {
+  const sel = document.getElementById('parser-group');
+  const prev = sel.value;
+  sel.innerHTML = '';
+  config.groups.forEach(g => {
+    const opt = document.createElement('option');
+    opt.value = g.id;
+    opt.textContent = g.name + (g.type === 'players' ? ' (선수)' : '');
+    if (g.id === prev || (currentGroupId !== ALL_TAB && g.id === currentGroupId))
+      opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function parseTimestamps(text) {
+  const ts = '(\\d+:\\d{2}(?::\\d{2})?)';
+  const re = new RegExp(`^\\s*${ts}(?:\\s*[-~]\\s*${ts})?\\s+(.+)$`);
+  const results = [];
+  for (const line of text.split('\n')) {
+    const m = line.match(re);
+    if (!m) continue;
+    const start = parseTime(m[1]);
+    const end   = m[2] ? parseTime(m[2]) : null;
+    const label = m[3].trim();
+    if (start == null || !label) continue;
+    results.push({ startSeconds: start, endSeconds: end, label });
+  }
+  return results;
+}
+
+function runParser() {
+  const urlInput  = document.getElementById('parser-url').value.trim();
+  const text      = document.getElementById('parser-text').value;
+  const targetGid = document.getElementById('parser-group').value;
+
+  const videoId = urlInput ? parseVideoId(urlInput) : null;
+  if (urlInput && !videoId) { showToast('올바른 YouTube URL이 아닙니다.', true); return; }
+
+  const targetGroup = findGroup(targetGid);
+  if (!targetGroup) { showToast('대상 그룹을 선택하세요.', true); return; }
+
+  const entries = parseTimestamps(text);
+  if (!entries.length) { showToast('타임스탬프를 찾을 수 없습니다.\n형식: 0:30 이름', true); return; }
+
+  // 종료 시간 없으면 다음 항목 시작 시간 사용
+  for (let i = 0; i < entries.length; i++) {
+    if (entries[i].endSeconds == null) {
+      entries[i].endSeconds = i + 1 < entries.length
+        ? entries[i + 1].startSeconds
+        : entries[i].startSeconds + 60;
+    }
+  }
+
+  let added = 0, skipped = 0;
+  entries.forEach((entry, i) => {
+    // 같은 그룹 중복 이름 건너뜀
+    if (targetGroup.buttons.some(b => b.label === entry.label)) { skipped++; return; }
+    // 구간 너무 짧으면 건너뜀
+    if (entry.endSeconds - entry.startSeconds < 1) { skipped++; return; }
+
+    targetGroup.buttons.push({
+      id: uid(),
+      label: entry.label,
+      videoId: videoId || '',
+      startSeconds: entry.startSeconds,
+      endSeconds:   entry.endSeconds,
+      color: COLORS[i % COLORS.length],
+      ...(targetGroup.type === 'players' ? { battingOrder: 0 } : {}),
+    });
+    added++;
+  });
+
+  currentGroupId = targetGid;
+  saveConfig(); renderAll();
+  const msg = skipped > 0
+    ? `${added}개 생성, ${skipped}개 건너뜀 (중복 또는 구간 오류)`
+    : `${added}개 버튼이 생성되었습니다!`;
+  showToast(msg);
 }
 
 // ══════════════════════════════════════════════════
@@ -1300,8 +1425,8 @@ function parseVideoId(s) {
 }
 
 function parseTime(raw) {
-  if (!raw) return 0;
-  raw = raw.trim();
+  if (raw == null) return null;
+  raw = String(raw).trim();
   if (!raw) return 0;
   if (raw.includes(':')) {
     const p = raw.split(':').map(Number);
@@ -1320,10 +1445,11 @@ function setGridCols(v) {
 }
 
 function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach((b, i) =>
-    b.classList.toggle('active', ['edit','io'][i] === tab));
+  document.querySelectorAll('.tab-btn[data-tab]').forEach(b =>
+    b.classList.toggle('active', b.dataset.tab === tab));
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'parser') populateParserGroupSelect();
 }
 
 // ══════════════════════════════════════════════════
@@ -1331,9 +1457,8 @@ function switchTab(tab) {
 // ══════════════════════════════════════════════════
 function exportConfig() {
   const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
-  const a = Object.assign(document.createElement('a'), {
-    href: URL.createObjectURL(blob), download: 'baseball-launchpad.json'
-  });
+  const a = Object.assign(document.createElement('a'),
+    { href: URL.createObjectURL(blob), download: 'baseball-launchpad.json' });
   a.click();
   showToast('설정 파일이 다운로드되었습니다.');
 }
@@ -1354,15 +1479,12 @@ function applyImport() {
   if (!t) { showToast('JSON을 붙여넣어 주세요.'); return; }
   try {
     const d = JSON.parse(t);
-    if (d.groups) { config = d; }
-    else if (d.buttons) { config = migrateLegacy(d); }
-    else throw 0;
-    initCurrentGroup();
-    saveConfig(); renderAll();
+    config = d.groups ? d : (d.buttons ? migrateLegacy(d) : (() => { throw 0; })());
+    initCurrentGroup(); saveConfig(); renderAll();
     const total = config.groups.reduce((n, g) => n + g.buttons.length, 0);
     showToast(`${total}개 버튼을 가져왔습니다!`);
     switchTab('edit');
-  } catch { showToast('올바른 JSON 형식이 아닙니다.'); }
+  } catch { showToast('올바른 JSON 형식이 아닙니다.', true); }
 }
 
 function triggerImport() { document.getElementById('import-file').click(); }
@@ -1373,14 +1495,11 @@ function importFromFile(e) {
   r.onload = ev => {
     try {
       const d = JSON.parse(ev.target.result);
-      if (d.groups) { config = d; }
-      else if (d.buttons) { config = migrateLegacy(d); }
-      else throw 0;
-      initCurrentGroup();
-      saveConfig(); renderAll();
+      config = d.groups ? d : (d.buttons ? migrateLegacy(d) : (() => { throw 0; })());
+      initCurrentGroup(); saveConfig(); renderAll();
       const total = config.groups.reduce((n, g) => n + g.buttons.length, 0);
       showToast(`${total}개 버튼을 가져왔습니다!`);
-    } catch { showToast('파일 읽기 실패: 올바른 JSON이 아닙니다.'); }
+    } catch { showToast('파일 읽기 실패: 올바른 JSON이 아닙니다.', true); }
     e.target.value = '';
   };
   r.readAsText(file);
@@ -1388,9 +1507,7 @@ function importFromFile(e) {
 
 function resetConfig() {
   if (!confirm('모든 설정을 초기화할까요?')) return;
-  config = defaultConfig();
-  initCurrentGroup();
-  editingBtnId = null;
+  config = defaultConfig(); initCurrentGroup(); editingBtnId = null;
   saveConfig(); renderAll();
   document.getElementById('edit-placeholder').style.display = '';
   document.getElementById('edit-form').style.display = 'none';
@@ -1401,10 +1518,10 @@ function resetConfig() {
 // 토스트
 // ══════════════════════════════════════════════════
 let _toastTimer;
-function showToast(msg) {
+function showToast(msg, isErr = false) {
   const t = document.getElementById('toast');
   t.textContent = msg;
-  t.classList.add('show');
+  t.className = isErr ? 'err show' : 'show';
   clearTimeout(_toastTimer);
   _toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }

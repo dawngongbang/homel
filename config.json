@@ -9,7 +9,7 @@
         {
           "id": "b1",
           "label": "응원 시작!",
-          "videoId": "dQw4w9WgXcQ",
+          "videoId": "Ruk1rklBDX4",
           "startSeconds": 0,
           "endSeconds": 30,
           "color": "#e74c3c"
@@ -26,14 +26,14 @@
           "id": "p1",
           "label": "이정후",
           "battingOrder": 1,
-          "videoId": "",
-          "startSeconds": 0,
-          "endSeconds": 30,
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 30,
+          "endSeconds": 90,
           "color": "#3498db",
           "entrance": {
-            "videoId": "",
+            "videoId": "Ruk1rklBDX4",
             "startSeconds": 0,
-            "endSeconds": 20
+            "endSeconds": 30
           }
         },
         {
