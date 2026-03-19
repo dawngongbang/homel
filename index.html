@@ -181,15 +181,29 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 .pad-btn:hover .pad-edit-btn, .player-card:hover .pad-edit-btn { display: flex; }
 .pad-edit-btn:hover { color: #fff; background: rgba(0,0,0,0.8); }
 
-/* 선수 카드 — jersey card style */
+/* 선수 카드 — pad-btn과 동일한 외관 */
 .player-card {
   position: relative; border: none;
-  border-radius: 12px; overflow: hidden; cursor: default;
-  transition: transform 0.12s, box-shadow 0.2s; display: flex; flex-direction: column; aspect-ratio: 1;
-  background: #0d1b36;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07);
+  border-radius: 12px; overflow: hidden; cursor: pointer;
+  transition: filter 0.12s, transform 0.12s, box-shadow 0.2s;
+  display: flex; flex-direction: column; aspect-ratio: 1;
+  background: linear-gradient(175deg, #142245 0%, #0d1b36 100%);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
 }
-.player-card:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.55); }
+/* white piping — pad-btn과 동일 */
+.player-card::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: #fff;
+  clip-path: polygon(0% 100%, 0% 46%, 50% 60%, 100% 46%, 100% 100%);
+}
+/* accent V — pad-btn과 동일 */
+.player-card::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: var(--accent, #e74c3c);
+  clip-path: polygon(0% 100%, 0% 51%, 50% 72%, 100% 51%, 100% 100%);
+}
+.player-card:hover { filter: brightness(1.22); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.55); }
+.player-card:active { transform: scale(0.93) translateY(0); filter: brightness(0.95); }
 .player-card.playing {
   box-shadow: 0 0 0 2px #fff, 0 0 20px var(--accent, #e94560);
   animation: pulse 1.2s ease-in-out infinite;
@@ -203,23 +217,11 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   50%       { box-shadow: 0 0 0 2px #f39c12, 0 0 26px rgba(243,156,18,0.9); }
 }
 .player-card-top {
-  flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden;
+  flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: flex-start;
-  padding: 10px 8px 4px; text-align: center; cursor: pointer;
+  padding: 14px 8px 8px; text-align: center; cursor: pointer;
+  position: relative; z-index: 2;
 }
-/* white piping on card top */
-.player-card-top::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  background: #fff;
-  clip-path: polygon(0% 100%, 0% 48%, 50% 62%, 100% 48%, 100% 100%);
-}
-/* accent V on card top */
-.player-card-top::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  background: var(--accent, #e74c3c);
-  clip-path: polygon(0% 100%, 0% 53%, 50% 74%, 100% 53%, 100% 100%);
-}
-.player-card-top:hover { filter: brightness(1.15); }
 .player-num-row {
   display: flex; align-items: baseline; gap: 4px;
   position: relative; z-index: 2;
@@ -242,22 +244,24 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   position: relative; z-index: 2; letter-spacing: 1.5px;
   text-shadow: 0 1px 5px rgba(0,0,0,0.9);
 }
-.player-chain-hint {
-  font-size: 0.54rem; color: rgba(255,255,255,0.38); margin-top: 5px;
-  position: relative; z-index: 2;
+.player-chain-hint { display: none; }
+/* 등장/응원 버튼 — 하단 오버레이 (항상 표시) */
+.player-card-actions {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  display: flex;
+  background: rgba(0,0,0,0.55); border-top: 1px solid rgba(255,255,255,0.1);
 }
-.player-card-actions { display: flex; border-top: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
 .player-action-btn {
-  flex: 1; background: rgba(0,0,0,0.35); border: none; color: #ddd;
+  flex: 1; background: transparent; border: none; color: #ddd;
   padding: 7px 4px; cursor: pointer; font-size: 0.68rem;
   transition: background 0.15s; display: flex;
   flex-direction: column; align-items: center; gap: 2px; line-height: 1;
 }
-.player-action-btn:hover { background: rgba(255,255,255,0.1); }
-.player-action-btn:active { background: rgba(255,255,255,0.2); }
+.player-action-btn:hover { background: rgba(255,255,255,0.12); }
+.player-action-btn:active { background: rgba(255,255,255,0.22); }
 .player-action-btn + .player-action-btn { border-left: 1px solid rgba(255,255,255,0.08); }
-.player-action-btn.entrance-active { background: rgba(243,156,18,0.28); }
-.player-action-btn.cheer-active    { background: rgba(46,204,113,0.22); }
+.player-action-btn.entrance-active { background: rgba(243,156,18,0.35); }
+.player-action-btn.cheer-active    { background: rgba(46,204,113,0.28); }
 
 /* 컨텍스트 메뉴 */
 .ctx-menu {
