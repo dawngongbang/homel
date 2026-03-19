@@ -124,17 +124,17 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   text-shadow: 0 1px 5px rgba(0,0,0,0.9);
   box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
 }
-/* white piping — slightly larger V, sits below accent */
+/* white piping — outer V, wider at center (like real jersey piping) */
 .pad-btn::after {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
   background: #fff;
-  clip-path: polygon(0% 100%, 0% 39%, 50% 55%, 100% 39%, 100% 100%);
+  clip-path: polygon(0% 100%, 0% 46%, 50% 60%, 100% 46%, 100% 100%);
 }
-/* accent V — sits on top of white piping, slightly smaller */
+/* accent V — inner V, gap grows toward center */
 .pad-btn::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
   background: var(--accent, #e74c3c);
-  clip-path: polygon(0% 100%, 0% 44%, 50% 60%, 100% 44%, 100% 100%);
+  clip-path: polygon(0% 100%, 0% 51%, 50% 72%, 100% 51%, 100% 100%);
 }
 .pad-btn > * { position: relative; z-index: 2; }
 .pad-btn:hover { filter: brightness(1.22); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.55); }
@@ -211,15 +211,23 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 .player-card-top::after {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
   background: #fff;
-  clip-path: polygon(0% 100%, 0% 41%, 50% 58%, 100% 41%, 100% 100%);
+  clip-path: polygon(0% 100%, 0% 48%, 50% 62%, 100% 48%, 100% 100%);
 }
 /* accent V on card top */
 .player-card-top::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
   background: var(--accent, #e74c3c);
-  clip-path: polygon(0% 100%, 0% 46%, 50% 63%, 100% 46%, 100% 100%);
+  clip-path: polygon(0% 100%, 0% 53%, 50% 74%, 100% 53%, 100% 100%);
 }
 .player-card-top:hover { filter: brightness(1.15); }
+.player-num-row {
+  display: flex; align-items: baseline; gap: 4px;
+  position: relative; z-index: 2;
+}
+.player-order-badge {
+  font-size: 0.6rem; color: rgba(255,255,255,0.55); font-weight: 700;
+  white-space: nowrap;
+}
 /* jersey number — white with accent outline */
 .player-order-num {
   font-size: 1.6rem; font-weight: 900; color: #fff; line-height: 1;
@@ -437,9 +445,17 @@ input[type=range] { width: 80px; accent-color: #e94560; }
             <label>소속 그룹</label>
             <select id="edit-group" onchange="onEditGroupChange()"></select>
           </div>
-          <div class="form-group" id="edit-batting-order-group" style="display:none">
-            <label>타순 (0=벤치, 1~9=선발)</label>
-            <input type="number" id="edit-batting-order" min="0" max="9" placeholder="0">
+          <div id="edit-player-fields-group" style="display:none">
+            <div class="two-col">
+              <div class="form-group">
+                <label>등번호</label>
+                <input type="number" id="edit-jersey-number" min="0" max="99" placeholder="예: 47">
+              </div>
+              <div class="form-group">
+                <label>타순 (0=벤치)</label>
+                <input type="number" id="edit-batting-order" min="0" max="9" placeholder="0">
+              </div>
+            </div>
           </div>
           <div class="section-title" id="cheer-section-title">재생 정보</div>
           <div class="form-group">
@@ -1055,8 +1071,9 @@ function makePlayerCard(btn, gid) {
 
   if (!hasEntrance) {
     const pad = makePad(btn, gid);
-    if (btn.battingOrder) {
-      const ord = document.createElement('div'); ord.className = 'pad-badge order'; ord.textContent = btn.battingOrder;
+    if (btn.battingOrder || btn.number != null) {
+      const ord = document.createElement('div'); ord.className = 'pad-badge order';
+      ord.textContent = (btn.number != null ? btn.number : '') + (btn.battingOrder ? ` · ${btn.battingOrder}번` : '');
       pad.insertBefore(ord, pad.firstChild);
     }
     return pad;
@@ -1072,10 +1089,16 @@ function makePlayerCard(btn, gid) {
   card.dataset.gid = gid; card.dataset.bid = btn.id;
 
   const top = document.createElement('div'); top.className = 'player-card-top'; top.title = '클릭: 등장→응원 연결';
-  const orderEl = document.createElement('div'); orderEl.className = 'player-order-num'; orderEl.textContent = btn.battingOrder || '';
+  // 등번호 (크게) + 타순 (작게)
+  const numRow  = document.createElement('div'); numRow.className = 'player-num-row';
+  const jerseyEl = document.createElement('div'); jerseyEl.className = 'player-order-num';
+  jerseyEl.textContent = btn.number != null ? btn.number : '';
+  const orderBadge = document.createElement('div'); orderBadge.className = 'player-order-badge';
+  orderBadge.textContent = btn.battingOrder ? `${btn.battingOrder}번` : '';
+  numRow.append(jerseyEl, orderBadge);
   const nameEl  = document.createElement('div'); nameEl.className = 'player-name'; nameEl.textContent = btn.label || '(이름 없음)';
   const hint    = document.createElement('div'); hint.className = 'player-chain-hint'; hint.textContent = '▶ 등장→응원';
-  top.append(orderEl, nameEl, hint);
+  top.append(numRow, nameEl, hint);
   top.onclick = () => handleChainClick(gid, btn.id);
 
   const actions = document.createElement('div'); actions.className = 'player-card-actions';
@@ -1204,6 +1227,7 @@ function openEditPanelByBtn(gid, bid) {
 
   updatePlayerFields(g);
   if (g && g.type === 'players') {
+    document.getElementById('edit-jersey-number').value = btn.number ?? '';
     document.getElementById('edit-batting-order').value = btn.battingOrder ?? 0;
     const hasE = !!(btn.entrance && btn.entrance.videoId);
     document.getElementById('entrance-enabled').checked = hasE;
@@ -1220,7 +1244,7 @@ function onEditGroupChange() { updatePlayerFields(findGroup(document.getElementB
 
 function updatePlayerFields(g) {
   const isP = !!(g && g.type === 'players');
-  document.getElementById('edit-batting-order-group').style.display = isP ? '' : 'none';
+  document.getElementById('edit-player-fields-group').style.display = isP ? '' : 'none';
   document.getElementById('entrance-section').style.display         = isP ? '' : 'none';
   document.getElementById('cheer-section-title').textContent        = isP ? '응원가' : '재생 정보';
   if (!isP) { document.getElementById('entrance-enabled').checked = false; document.getElementById('entrance-fields').style.display = 'none'; }
@@ -1324,6 +1348,8 @@ function saveEdit() {
   if (colorEl) btn.color = colorEl.style.background;
 
   if (targetGroup && targetGroup.type === 'players') {
+    const jn = parseInt(document.getElementById('edit-jersey-number').value);
+    if (!isNaN(jn) && jn >= 0) btn.number = jn; else delete btn.number;
     btn.battingOrder = parseInt(document.getElementById('edit-batting-order').value) || 0;
     if (document.getElementById('entrance-enabled').checked) {
       const eUrl = document.getElementById('entrance-url').value.trim();
