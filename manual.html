@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>야구 응원가 런치패드 — 사용 설명서</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #1a1a2e; color: #eee;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.7; padding: 0 0 60px;
+}
+a { color: #e94560; }
+.topbar {
+  background: #16213e; border-bottom: 2px solid #0f3460;
+  padding: 12px 32px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.topbar h1 { font-size: 1.1rem; color: #e94560; }
+.topbar a { font-size: 0.82rem; color: #aaa; text-decoration: none; }
+.topbar a:hover { color: #eee; }
+
+.container { max-width: 820px; margin: 0 auto; padding: 32px 24px; }
+
+h2 {
+  font-size: 1.15rem; color: #e94560; margin: 40px 0 14px;
+  padding-bottom: 8px; border-bottom: 1px solid #0f3460;
+}
+h3 { font-size: 0.95rem; color: #7fdbff; margin: 20px 0 8px; }
+p  { font-size: 0.88rem; color: #ccc; margin-bottom: 10px; }
+ul, ol { padding-left: 20px; margin-bottom: 10px; }
+li { font-size: 0.88rem; color: #ccc; margin-bottom: 5px; }
+li strong { color: #eee; }
+
+.tip {
+  background: #0f3460; border-left: 3px solid #e94560;
+  border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 12px 0;
+  font-size: 0.84rem; color: #aaa;
+}
+.tip strong { color: #eee; display: block; margin-bottom: 2px; }
+
+.code-block {
+  background: #0a1628; border: 1px solid #1a5276; border-radius: 8px;
+  padding: 12px 16px; margin: 10px 0; font-family: monospace;
+  font-size: 0.8rem; color: #7fdbff; overflow-x: auto;
+}
+
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 0.75rem; font-weight: bold; vertical-align: middle;
+}
+.badge-red    { background: #922b21; color: #fff; }
+.badge-orange { background: rgba(243,156,18,0.3); color: #f39c12; border: 1px solid #f39c12; }
+.badge-green  { background: rgba(46,204,113,0.3); color: #2ecc71; border: 1px solid #2ecc71; }
+.badge-blue   { background: #0f3460; color: #7fdbff; border: 1px solid #1a5276; }
+
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.84rem;
+}
+th { background: #0f3460; color: #eee; padding: 8px 12px; text-align: left; }
+td { border-bottom: 1px solid #0f3460; padding: 8px 12px; color: #ccc; }
+tr:last-child td { border-bottom: none; }
+
+.toc {
+  background: #16213e; border: 1px solid #0f3460; border-radius: 10px;
+  padding: 16px 20px; margin-bottom: 32px;
+}
+.toc h3 { color: #aaa; font-size: 0.82rem; margin-bottom: 10px; }
+.toc ol { padding-left: 18px; }
+.toc li { margin-bottom: 4px; font-size: 0.84rem; }
+.toc a { color: #7fdbff; text-decoration: none; }
+.toc a:hover { color: #eee; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>📖 야구 응원가 런치패드 — 사용 설명서</h1>
+  <a href="./index.html">← 런치패드로 돌아가기</a>
+</div>
+
+<div class="container">
+
+  <div class="toc">
+    <h3>목차</h3>
+    <ol>
+      <li><a href="#overview">기본 구조</a></li>
+      <li><a href="#groups">그룹 관리</a></li>
+      <li><a href="#buttons">버튼 편집</a></li>
+      <li><a href="#players">선수 그룹 &amp; 등장곡</a></li>
+      <li><a href="#cut">✂ 구간 나누기</a></li>
+      <li><a href="#select">선택 삭제</a></li>
+      <li><a href="#parser">⚡ 타임스탬프 파서</a></li>
+      <li><a href="#playback">재생 방식 &amp; 팝업</a></li>
+      <li><a href="#io">가져오기 / 내보내기</a></li>
+      <li><a href="#tips">팁 &amp; 자주 묻는 것들</a></li>
+    </ol>
+  </div>
+
+  <!-- ① 기본 구조 -->
+  <h2 id="overview">① 기본 구조</h2>
+  <p>런치패드는 <strong>그룹 탭 → 버튼 그리드 → 재생</strong> 3단계로 동작합니다.</p>
+  <table>
+    <tr><th>영역</th><th>설명</th></tr>
+    <tr><td>상단 탭 바</td><td>그룹별 탭 + <strong>전체</strong> 탭(모든 그룹 한 화면)</td></tr>
+    <tr><td>버튼 그리드</td><td>클릭하면 해당 구간이 즉시 재생</td></tr>
+    <tr><td>컨트롤 바</td><td>⏸ 일시정지 / ⏹ 정지 / 볼륨 / 📺 영상 보기</td></tr>
+    <tr><td>오른쪽 패널</td><td>버튼 편집 / ⚡ 파서 / 가져오기·내보내기</td></tr>
+  </table>
+  <div class="tip">
+    <strong>설정 저장 위치</strong>
+    브라우저 localStorage에 자동 저장됩니다. config.json 파일이 있으면 그것을 우선 읽습니다. 내보내기 → JSON 파일을 config.json으로 저장하면 다음 접속부터 자동 로드됩니다.
+  </div>
+
+  <!-- ② 그룹 관리 -->
+  <h2 id="groups">② 그룹 관리</h2>
+  <p>탭 바 오른쪽 <strong>+ 그룹 추가</strong>로 그룹을 만들 수 있습니다.</p>
+  <p>탭을 <strong>우클릭</strong>하거나 탭에 마우스를 올리면 나오는 <strong>⋯</strong> 을 누르면:</p>
+  <ul>
+    <li><strong>✏ 이름 변경</strong></li>
+    <li><strong>🔄 선수 그룹 ↔ 일반 그룹 변경</strong> — 선수 그룹은 타순/등장곡 기능이 활성화됩니다</li>
+    <li><strong>🗑 그룹 삭제</strong> (마지막 그룹은 삭제 불가)</li>
+  </ul>
+  <div class="tip">
+    <strong>전체 탭</strong>
+    탭 바 맨 앞의 "전체" 탭을 누르면 모든 그룹의 버튼을 한 화면에서 볼 수 있습니다.
+  </div>
+
+  <!-- ③ 버튼 편집 -->
+  <h2 id="buttons">③ 버튼 편집</h2>
+  <p>버튼을 클릭하거나, 버튼 위에 마우스를 올려 나오는 <strong>✏</strong> 를 누르면 오른쪽 편집 패널이 열립니다.</p>
+  <table>
+    <tr><th>항목</th><th>내용</th></tr>
+    <tr><td>이름</td><td>버튼에 표시되는 이름 (최대 20자)</td></tr>
+    <tr><td>소속 그룹</td><td>드롭다운으로 다른 그룹으로 이동 가능</td></tr>
+    <tr><td>YouTube URL</td><td>전체 URL, youtu.be 단축 URL, 또는 Video ID 모두 가능</td></tr>
+    <tr><td>시작 / 종료</td><td><code>1:30</code> 또는 <code>90</code> (초) 형식</td></tr>
+    <tr><td>색상</td><td>12가지 색상 팔레트에서 선택</td></tr>
+  </table>
+  <div class="tip">
+    <strong>종료 시간을 비워두면?</strong>
+    저장 시 종료 시간은 필수입니다. 영상 끝까지 재생하려면 충분히 큰 값(예: 99:00)을 입력하세요.
+  </div>
+
+  <!-- ④ 선수 그룹 & 등장곡 -->
+  <h2 id="players">④ 선수 그룹 &amp; 등장곡</h2>
+  <p>그룹 타입을 <strong>선수 그룹</strong>으로 설정하면 버튼에 타순 번호와 등장곡 기능이 추가됩니다.</p>
+
+  <h3>타순 설정</h3>
+  <ul>
+    <li><strong>1~9</strong> — 선발. 번호 오름차순으로 정렬되어 표시됩니다.</li>
+    <li><strong>0</strong> — 벤치. 선발 아래에 별도 섹션으로 표시됩니다.</li>
+  </ul>
+
+  <h3>등장곡 설정</h3>
+  <p>편집 패널 하단 <strong>🎵 등장곡 사용</strong> 체크박스를 켜면 등장곡 구간을 설정할 수 있습니다.</p>
+  <ul>
+    <li><strong>등장곡 URL을 비워두면</strong> — 응원가와 동일한 영상을 사용합니다.</li>
+    <li><strong>다른 URL을 입력하면</strong> — 별도 영상의 구간을 등장곡으로 사용합니다.</li>
+  </ul>
+
+  <h3>선수 카드 클릭 방법</h3>
+  <table>
+    <tr><th>클릭 위치</th><th>동작</th></tr>
+    <tr><td>카드 상단 (이름 영역)</td><td>등장곡 → 응원가 자동 연결 재생<br><span style="font-size:0.78rem;color:#888">같은 영상이고 구간 간격 1초 이하이면 하나의 구간으로 합쳐서 재생</span></td></tr>
+    <tr><td><span class="badge badge-orange">🎵 등장</span> 버튼</td><td>등장곡만 재생 → 끝나면 응원가로 자동 연결</td></tr>
+    <tr><td><span class="badge badge-green">⚾ 응원</span> 버튼</td><td>응원가만 즉시 재생</td></tr>
+    <tr><td>✏ 아이콘 (hover)</td><td>편집 패널 열기</td></tr>
+  </table>
+
+  <!-- ⑤ 구간 나누기 -->
+  <h2 id="cut">⑤ ✂ 구간 나누기</h2>
+  <p>응원가 구간을 하나의 URL로 통으로 설정해 뒀을 때, 나누기 시점 하나만 입력하면 자동으로 등장곡/응원가로 분리됩니다.</p>
+  <ol>
+    <li>선수 그룹 버튼의 편집 패널을 엽니다.</li>
+    <li>응원가 URL / 시작 / 종료 시간을 먼저 입력합니다.</li>
+    <li><strong>✂ 구간 나누기</strong> 버튼을 누릅니다.</li>
+    <li>나누기 시점을 입력합니다. (예: <code>0:20</code>)</li>
+    <li><strong>적용</strong>을 누르면:<br>
+      &nbsp;&nbsp;등장곡 = 기존시작 ~ 나누기시점<br>
+      &nbsp;&nbsp;응원가 = 나누기시점 ~ 기존종료
+    </li>
+    <li><strong>저장</strong>을 눌러 확정합니다.</li>
+  </ol>
+  <div class="tip">
+    <strong>등장곡 URL 생략 시</strong>
+    나누기를 사용하면 응원가와 동일 영상을 쓰므로 등장곡 URL 칸을 비워두면 됩니다. 저장 시 자동으로 같은 videoId를 사용합니다.
+  </div>
+
+  <!-- ⑥ 선택 삭제 -->
+  <h2 id="select">⑥ 선택 삭제</h2>
+  <p>여러 버튼을 한 번에 삭제할 때 사용합니다.</p>
+  <ol>
+    <li>런치패드 헤더 오른쪽 <strong>☑ 선택</strong> 버튼을 누릅니다.</li>
+    <li>삭제할 버튼들을 클릭해 선택합니다. (선택된 버튼은 빨간 테두리 + ✓ 표시)</li>
+    <li><strong>🗑 삭제</strong> 버튼을 누르면 선택한 버튼이 모두 삭제됩니다.</li>
+    <li><strong>취소</strong> 또는 <kbd>Esc</kbd> 로 선택 모드를 종료합니다.</li>
+  </ol>
+
+  <!-- ⑦ 타임스탬프 파서 -->
+  <h2 id="parser">⑦ ⚡ 타임스탬프 파서</h2>
+  <p>유튜브 응원가 모음 영상의 댓글·설명란 타임스탬프를 그대로 붙여넣으면 버튼을 자동 생성합니다.</p>
+
+  <h3>사용법</h3>
+  <ol>
+    <li>오른쪽 패널에서 <strong>⚡ 파서</strong> 탭을 선택합니다.</li>
+    <li>(선택) 영상 YouTube URL을 입력합니다 — 생성되는 모든 버튼에 일괄 적용됩니다.</li>
+    <li>버튼을 추가할 <strong>대상 그룹</strong>을 선택합니다.</li>
+    <li>타임스탬프 텍스트를 붙여넣습니다.</li>
+    <li><strong>버튼 생성</strong>을 누릅니다.</li>
+  </ol>
+
+  <h3>지원 형식</h3>
+  <div class="code-block">0:00 이름
+01:44 박찬호
+02:48 - 04:14 김선빈
+04:14~05:10 김도영
+• 05:10 이창진
+[06:09] 윤도현</div>
+
+  <h3>중복 처리</h3>
+  <ul>
+    <li>같은 이름이 이미 있으면 <strong>자동으로 덮어씁니다</strong> (시간/URL 갱신).</li>
+    <li>구간이 1초 미만인 항목은 건너뜁니다.</li>
+  </ul>
+
+  <!-- ⑧ 재생 방식 -->
+  <h2 id="playback">⑧ 재생 방식 &amp; 팝업 폴백</h2>
+  <h3>인라인 재생 (기본)</h3>
+  <p>페이지 내 YouTube 플레이어로 재생됩니다. <strong>📺 영상 보기</strong> 버튼으로 영상 표시/숨기기를 전환할 수 있습니다.</p>
+
+  <h3>팝업 폴백</h3>
+  <p>일부 영상은 삽입(임베드)을 허용하지 않습니다. 이 경우 자동으로 YouTube 팝업 창이 열립니다. 버튼에 <span class="badge badge-red">팝업재생</span> 배지가 표시됩니다.</p>
+
+  <h3>광고 최소화</h3>
+  <p>같은 브라우저에서 YouTube에 로그인돼 있으면 (다른 탭 포함) 그 세션이 공유됩니다. <strong>YouTube Premium</strong> 구독 중이면 광고가 표시되지 않습니다. Safari는 ITP 정책으로 인해 쿠키 공유가 제한될 수 있습니다.</p>
+
+  <h3>키보드 단축키</h3>
+  <table>
+    <tr><th>키</th><th>동작</th></tr>
+    <tr><td><kbd>Esc</kbd></td><td>재생 정지 / 선택 모드 종료 / 메뉴 닫기</td></tr>
+  </table>
+
+  <!-- ⑨ 가져오기/내보내기 -->
+  <h2 id="io">⑨ 가져오기 / 내보내기</h2>
+  <h3>JSON 파일로 내보내기</h3>
+  <p>헤더 <strong>내보내기</strong> 버튼 → <code>baseball-launchpad.json</code> 파일이 다운로드됩니다.</p>
+
+  <h3>config.json으로 설정 고정</h3>
+  <p>내보낸 파일을 <code>config.json</code>이라는 이름으로 저장하면, 다음 접속 시 자동으로 해당 설정을 불러옵니다.</p>
+
+  <h3>JSON 스키마</h3>
+  <div class="code-block">{
+  "groups": [
+    {
+      "id": "g1",
+      "name": "팀 응원가",
+      "type": "general",      // "general" | "players"
+      "gridCols": 5,
+      "buttons": [
+        {
+          "id": "b1",
+          "label": "버튼 이름",
+          "videoId": "YouTube Video ID",
+          "startSeconds": 0,
+          "endSeconds": 30,
+          "color": "#e74c3c",
+          // 선수 그룹 전용:
+          "battingOrder": 3,  // 1~9: 선발, 0: 벤치
+          "entrance": {
+            "videoId": "같거나 다른 Video ID",
+            "startSeconds": 0,
+            "endSeconds": 20
+          }
+        }
+      ]
+    }
+  ]
+}</div>
+
+  <!-- ⑩ 팁 -->
+  <h2 id="tips">⑩ 팁 &amp; 자주 묻는 것들</h2>
+
+  <h3>타임스탬프 파서로 선수 등록 후 등장곡 설정하는 흐름</h3>
+  <ol>
+    <li>파서로 선수응원가 구간을 먼저 일괄 등록합니다.</li>
+    <li>각 선수 버튼 ✏ 편집에서 <strong>타순</strong>을 설정하면 선발/벤치가 자동 분류됩니다.</li>
+    <li><strong>✂ 구간 나누기</strong>로 나누기 시점을 입력하면 등장곡/응원가가 자동 분리됩니다.</li>
+  </ol>
+
+  <h3>선수 카드가 일반 버튼처럼 보일 때</h3>
+  <p>등장곡 URL이 설정되지 않은 선수는 일반 패드로 표시됩니다. 등장곡을 설정하면 이름/등장/응원 분리 카드로 바뀝니다.</p>
+
+  <h3>재생이 안 될 때</h3>
+  <ul>
+    <li>YouTube URL이 올바른지 확인하세요.</li>
+    <li>해당 영상이 임베드를 허용하지 않으면 팝업 창이 자동으로 열립니다.</li>
+    <li>브라우저가 팝업을 차단하는 경우 주소창 오른쪽 팝업 허용 버튼을 눌러주세요.</li>
+  </ul>
+
+  <h3>설정 초기화</h3>
+  <p>헤더 <strong style="color:#e74c3c">초기화</strong> 버튼을 누르면 localStorage가 지워지고 기본 설정(기아 타이거즈 샘플)으로 돌아갑니다. config.json이 있으면 그 내용으로 복원됩니다.</p>
+
+</div>
+</body>
+</html>

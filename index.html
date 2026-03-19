@@ -304,7 +304,9 @@ input[type=range] { width: 80px; accent-color: #e94560; }
     <button class="btn-small" onclick="addButtonToCurrentGroup()">+ 버튼 추가</button>
     <button class="btn-small" onclick="exportConfig()">내보내기</button>
     <button class="btn-small" onclick="triggerImport()">가져오기</button>
+    <button class="btn-small" onclick="loadPreset('kia2025')" title="KIA 타이거즈 2025 기본 세팅 불러오기">📋 기아2025</button>
     <button class="btn-small" onclick="resetConfig()" style="color:#e74c3c">초기화</button>
+    <a href="./manual.html" target="_blank" class="btn-small" style="text-decoration:none">📖 사용법</a>
     <input type="file" id="import-file" accept=".json" style="display:none" onchange="importFromFile(event)">
   </div>
 </header>
@@ -331,8 +333,8 @@ input[type=range] { width: 80px; accent-color: #e94560; }
           <div id="normal-controls" style="display:flex;align-items:center;gap:8px">
             <div class="grid-controls" id="grid-controls">
               열: <select id="grid-cols" onchange="setGridCols(this.value)">
-                <option value="3">3</option><option value="4" selected>4</option>
-                <option value="5">5</option><option value="6">6</option>
+                <option value="3">3</option><option value="4">4</option>
+                <option value="5" selected>5</option><option value="6">6</option>
               </select>
             </div>
             <button class="btn-small" onclick="enterSelectMode()" title="여러 버튼 선택 후 삭제">☑ 선택</button>
@@ -387,14 +389,26 @@ input[type=range] { width: 80px; accent-color: #e94560; }
             <div class="form-group"><label>종료 (mm:ss)</label><input type="text" id="edit-end" placeholder="1:00"></div>
           </div>
           <div class="entrance-section" id="entrance-section" style="display:none">
-            <label class="entrance-toggle">
-              <input type="checkbox" id="entrance-enabled" onchange="toggleEntranceFields()">
-              🎵 등장곡 사용
-            </label>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <label class="entrance-toggle" style="margin-bottom:0">
+                <input type="checkbox" id="entrance-enabled" onchange="toggleEntranceFields()">
+                🎵 등장곡 사용
+              </label>
+              <button class="btn-small" style="padding:3px 8px;font-size:0.72rem" onclick="showCutTool()" title="현재 구간을 등장곡/응원가로 분리">✂ 구간 나누기</button>
+            </div>
+            <!-- 구간 나누기 도구 -->
+            <div id="cut-tool" style="display:none;background:#0a1628;border-radius:6px;padding:8px;margin-bottom:8px">
+              <div style="font-size:0.72rem;color:#888;margin-bottom:6px">나누기 시점 입력 → 앞=등장곡 / 뒤=응원가</div>
+              <div style="display:flex;gap:6px;align-items:center">
+                <input type="text" id="cut-time" placeholder="0:20" style="flex:1;background:#0f3460;color:#eee;border:1px solid #1a5276;border-radius:6px;padding:5px 8px;font-size:0.82rem;outline:none">
+                <button class="btn-small" style="background:#e94560;border-color:#e94560;color:#fff" onclick="applyCut()">적용</button>
+                <button class="btn-small" onclick="document.getElementById('cut-tool').style.display='none'">✕</button>
+              </div>
+            </div>
             <div class="entrance-fields" id="entrance-fields" style="display:none">
-              <div class="form-group" style="margin-top:8px">
-                <label>등장곡 YouTube URL</label>
-                <input type="text" id="entrance-url" placeholder="https://youtu.be/xxxxx">
+              <div class="form-group" style="margin-top:4px">
+                <label>등장곡 YouTube URL <span style="color:#555;font-size:0.7rem">(비워두면 응원가와 동일 영상)</span></label>
+                <input type="text" id="entrance-url" placeholder="비워두면 응원가 URL 사용">
               </div>
               <div class="two-col">
                 <div class="form-group"><label>시작</label><input type="text" id="entrance-start" placeholder="0:00"></div>
@@ -494,7 +508,7 @@ let popupChainFn = null;
 window.onYouTubeIframeAPIReady = function () {
   ytFrame = new YT.Player('player-container', {
     width: '100%', height: '100%',
-    host: 'https://www.youtube-nocookie.com',
+    host: 'https://www.youtube.com',  // youtube.com → 같은 브라우저 로그인 세션 공유 (광고 감소)
     playerVars: { autoplay: 0, rel: 0, modestbranding: 1, controls: 1 },
     events: {
       onReady(e) {
@@ -745,6 +759,23 @@ function currentGroup() { return findGroup(currentGroupId); }
 // ══════════════════════════════════════════════════
 // 데이터 로드/저장
 // ══════════════════════════════════════════════════
+async function loadPreset(name) {
+  if (!confirm(`"${name}" 프리셋을 불러오면 현재 데이터가 교체됩니다. 계속할까요?`)) return;
+  try {
+    const res = await fetch(`./presets/${name}.json?_=` + Date.now());
+    if (!res.ok) throw new Error('not found');
+    const data = await res.json();
+    if (!data || !Array.isArray(data.groups)) throw new Error('invalid');
+    config = data;
+    saveConfig();
+    initCurrentGroup();
+    renderAll();
+    showToast(`${name} 프리셋을 불러왔습니다.`);
+  } catch (e) {
+    alert(`프리셋 "${name}"을 불러오지 못했습니다: ${e.message}`);
+  }
+}
+
 async function loadConfig() {
   try {
     const res = await fetch('./config.json?_=' + Date.now());
@@ -772,7 +803,7 @@ function defaultConfig() {
     groups: [
       { id: uid(), name: '팀 응원가', type: 'general', gridCols: 4,
         buttons: [{ id: uid(), label: '응원 시작!', videoId: DEFAULT_VIDEO, startSeconds: 0, endSeconds: 30, color: '#e74c3c' }] },
-      { id: uid(), name: '선수', type: 'players', gridCols: 4, buttons: [
+      { id: uid(), name: '선수', type: 'players', gridCols: 5, buttons: [
         { id: uid(), label: '김도영',   battingOrder: 1, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
         { id: uid(), label: '박찬호',   battingOrder: 2, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e67e22' },
         { id: uid(), label: '나성범',   battingOrder: 3, videoId: '', startSeconds: 0, endSeconds: 30, color: '#f1c40f' },
@@ -785,7 +816,7 @@ function defaultConfig() {
         { id: uid(), label: '양현종',   battingOrder: 0, videoId: '', startSeconds: 0, endSeconds: 30, color: '#607d8b' },
         { id: uid(), label: '이의리',   battingOrder: 0, videoId: '', startSeconds: 0, endSeconds: 30, color: '#607d8b' },
       ]},
-      { id: uid(), name: '상황별', type: 'general', gridCols: 4, buttons: [] }
+      { id: uid(), name: '상황별', type: 'general', gridCols: 5, buttons: [] }
     ]
   };
 }
@@ -1022,7 +1053,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { hideCtxMen
 
 function addGroup() {
   const name = prompt('그룹 이름:', '새 그룹'); if (!name) return;
-  const g = { id: uid(), name: name.trim(), type: 'general', gridCols: 4, buttons: [] };
+  const g = { id: uid(), name: name.trim(), type: 'general', gridCols: 5, buttons: [] };
   config.groups.push(g); currentGroupId = g.id; saveConfig(); renderAll();
   showToast(`'${g.name}' 그룹이 추가되었습니다.`);
 }
@@ -1106,7 +1137,48 @@ function updatePlayerFields(g) {
 }
 
 function toggleEntranceFields() {
-  document.getElementById('entrance-fields').style.display = document.getElementById('entrance-enabled').checked ? '' : 'none';
+  const enabled = document.getElementById('entrance-enabled').checked;
+  document.getElementById('entrance-fields').style.display = enabled ? '' : 'none';
+  if (!enabled) { document.getElementById('cut-tool').style.display = 'none'; }
+  // 등장곡 URL이 비어있으면 응원가 URL로 자동 채움 (힌트 표시만)
+  // 실제 저장 시 빈 값이면 응원가 videoId를 사용하도록 saveEdit에서 처리
+}
+
+function showCutTool() {
+  const cutTool = document.getElementById('cut-tool');
+  cutTool.style.display = cutTool.style.display === 'none' ? '' : 'none';
+  if (cutTool.style.display !== 'none') {
+    document.getElementById('cut-time').focus();
+  }
+}
+
+function applyCut() {
+  const startRaw = document.getElementById('edit-start').value.trim();
+  const endRaw   = document.getElementById('edit-end').value.trim();
+  const cutRaw   = document.getElementById('cut-time').value.trim();
+
+  const start = parseTime(startRaw);
+  const end   = parseTime(endRaw);
+  const cut   = parseTime(cutRaw);
+
+  if (start == null || end == null) { showToast('먼저 응원가 시작/종료 시간을 입력하세요.', true); return; }
+  if (cut == null) { showToast('나누기 시점을 입력하세요. (예: 0:20)', true); return; }
+  if (cut <= start) { showToast('나누기 시점은 시작 시간보다 커야 합니다.', true); return; }
+  if (cut >= end)   { showToast('나누기 시점은 종료 시간보다 작아야 합니다.', true); return; }
+
+  // 등장곡: start ~ cut (응원가와 같은 URL)
+  document.getElementById('entrance-enabled').checked = true;
+  document.getElementById('entrance-fields').style.display = '';
+  document.getElementById('entrance-url').value   = ''; // 빈 값 = 응원가 URL 공유
+  document.getElementById('entrance-start').value = fmt(start);
+  document.getElementById('entrance-end').value   = fmt(cut);
+
+  // 응원가: cut ~ end
+  document.getElementById('edit-start').value = fmt(cut);
+  // edit-end는 그대로
+
+  document.getElementById('cut-tool').style.display = 'none';
+  showToast(`등장곡 ${fmt(start)}–${fmt(cut)} / 응원가 ${fmt(cut)}–${fmt(end)} 로 분리됐습니다.`);
 }
 
 function renderSwatches(selected) {
@@ -1167,7 +1239,9 @@ function saveEdit() {
       const eUrl = document.getElementById('entrance-url').value.trim();
       const eSt  = parseTime(document.getElementById('entrance-start').value.trim());
       const eEn  = parseTime(document.getElementById('entrance-end').value.trim());
-      const eVid = eUrl ? parseVideoId(eUrl) : null;
+      // URL 비어있으면 응원가와 동일 영상 사용
+      const eVid = eUrl ? parseVideoId(eUrl) : (videoId || null);
+      if (eUrl && !parseVideoId(eUrl)) { showToast('등장곡 URL이 올바르지 않습니다.', true); return; }
       if (eVid) {
         if (eEn != null && eSt != null && eEn <= eSt) { showToast('등장곡: 종료 > 시작 이어야 합니다.', true); return; }
         if (eEn != null && eSt != null && eEn - eSt < 1) { showToast('등장곡 구간이 너무 짧습니다.', true); return; }
