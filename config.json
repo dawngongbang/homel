@@ -1,0 +1,13 @@
+{
+  "gridCols": 4,
+  "buttons": [
+    {
+      "id": "example1",
+      "label": "예시 버튼",
+      "videoId": "dQw4w9WgXcQ",
+      "startSeconds": 0,
+      "endSeconds": 30,
+      "color": "#e74c3c"
+    }
+  ]
+}

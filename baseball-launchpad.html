@@ -513,15 +513,30 @@ function updateNowPlaying(label) {
 // ══════════════════════════════════════════════════
 // 데이터
 // ══════════════════════════════════════════════════
-function loadConfig() {
+
+// config.json이 있으면 그것을 우선 사용, 없으면 localStorage 폴백
+async function loadConfig() {
+  try {
+    const res = await fetch('./config.json?_=' + Date.now()); // 캐시 방지
+    if (res.ok) {
+      const remote = await res.json();
+      if (remote && Array.isArray(remote.buttons)) {
+        config = remote;
+        renderGrid();
+        return;
+      }
+    }
+  } catch (_) {}
+
+  // 폴백: localStorage
   try {
     const s = localStorage.getItem('baseball-launchpad');
     if (s) config = JSON.parse(s);
   } catch (_) {}
   if (!config.buttons.length) {
     config.buttons = [{ id: uid(), label: '예시 버튼', videoId: 'dQw4w9WgXcQ', startSeconds: 0, endSeconds: 30, color: '#e74c3c' }];
-    saveConfig();
   }
+  renderGrid();
 }
 
 function saveConfig() { localStorage.setItem('baseball-launchpad', JSON.stringify(config)); }
@@ -793,9 +808,8 @@ function showToast(msg, isErr = false) {
 // ══════════════════════════════════════════════════
 // 시작
 // ══════════════════════════════════════════════════
-loadConfig();
-renderGrid();
 renderSwatches(COLORS[0]);
+loadConfig(); // async — 완료 시 내부에서 renderGrid() 호출
 </script>
 </body>
 </html>
