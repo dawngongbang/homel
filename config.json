@@ -1,13 +1,76 @@
 {
-  "gridCols": 4,
-  "buttons": [
+  "groups": [
     {
-      "id": "example1",
-      "label": "예시 버튼",
-      "videoId": "dQw4w9WgXcQ",
-      "startSeconds": 0,
-      "endSeconds": 30,
-      "color": "#e74c3c"
+      "id": "g1",
+      "name": "팀 응원가",
+      "type": "general",
+      "gridCols": 4,
+      "buttons": [
+        {
+          "id": "b1",
+          "label": "응원 시작!",
+          "videoId": "dQw4w9WgXcQ",
+          "startSeconds": 0,
+          "endSeconds": 30,
+          "color": "#e74c3c"
+        }
+      ]
+    },
+    {
+      "id": "g2",
+      "name": "선수",
+      "type": "players",
+      "gridCols": 4,
+      "buttons": [
+        {
+          "id": "p1",
+          "label": "이정후",
+          "battingOrder": 1,
+          "videoId": "",
+          "startSeconds": 0,
+          "endSeconds": 30,
+          "color": "#3498db",
+          "entrance": {
+            "videoId": "",
+            "startSeconds": 0,
+            "endSeconds": 20
+          }
+        },
+        {
+          "id": "p2",
+          "label": "김혜성",
+          "battingOrder": 2,
+          "videoId": "",
+          "startSeconds": 0,
+          "endSeconds": 30,
+          "color": "#2ecc71"
+        },
+        {
+          "id": "p3",
+          "label": "강백호",
+          "battingOrder": 3,
+          "videoId": "",
+          "startSeconds": 0,
+          "endSeconds": 30,
+          "color": "#9b59b6"
+        },
+        {
+          "id": "p9",
+          "label": "최원준",
+          "battingOrder": 0,
+          "videoId": "",
+          "startSeconds": 0,
+          "endSeconds": 30,
+          "color": "#607d8b"
+        }
+      ]
+    },
+    {
+      "id": "g3",
+      "name": "상황별",
+      "type": "general",
+      "gridCols": 4,
+      "buttons": []
     }
   ]
 }
