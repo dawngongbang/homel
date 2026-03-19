@@ -1071,10 +1071,14 @@ function makePlayerCard(btn, gid) {
 
   if (!hasEntrance) {
     const pad = makePad(btn, gid);
-    if (btn.battingOrder || btn.number != null) {
-      const ord = document.createElement('div'); ord.className = 'pad-badge order';
-      ord.textContent = (btn.number != null ? btn.number : '') + (btn.battingOrder ? ` · ${btn.battingOrder}번` : '');
-      pad.insertBefore(ord, pad.firstChild);
+    if (btn.number != null || btn.battingOrder) {
+      const numRow = document.createElement('div'); numRow.className = 'player-num-row';
+      const jerseyEl = document.createElement('div'); jerseyEl.className = 'player-order-num';
+      jerseyEl.textContent = btn.number != null ? btn.number : '';
+      const orderBadge = document.createElement('div'); orderBadge.className = 'player-order-badge';
+      orderBadge.textContent = btn.battingOrder ? `${btn.battingOrder}번` : '';
+      numRow.append(jerseyEl, orderBadge);
+      pad.insertBefore(numRow, pad.firstChild);
     }
     return pad;
   }
