@@ -1078,7 +1078,8 @@ function makePlayerCard(btn, gid) {
       const orderBadge = document.createElement('div'); orderBadge.className = 'player-order-badge';
       orderBadge.textContent = btn.battingOrder ? `${btn.battingOrder}번` : '';
       numRow.append(jerseyEl, orderBadge);
-      pad.insertBefore(numRow, pad.firstChild);
+      const editBtn = pad.querySelector('.pad-edit-btn');
+      pad.insertBefore(numRow, editBtn);
     }
     return pad;
   }
