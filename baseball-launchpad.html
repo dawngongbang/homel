@@ -124,16 +124,19 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   text-shadow: 0 1px 5px rgba(0,0,0,0.9);
   box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
 }
-/* V-shaped chevron — two diagonals from outer edges meeting at center (jersey neckline) */
-.pad-btn::before {
+/* white piping — slightly larger V, sits below accent */
+.pad-btn::after {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  background: var(--accent, #e74c3c);
-  /* left line: (0%,43%) → center (50%,58%) ← right line: (100%,43%) — V pointing DOWN */
-  clip-path: polygon(0% 100%, 0% 43%, 50% 58%, 100% 43%, 100% 100%);
-  /* white piping along the V edge via drop-shadow */
-  filter: drop-shadow(0px -1.5px 0px rgba(255,255,255,0.7));
+  background: #fff;
+  clip-path: polygon(0% 100%, 0% 39%, 50% 55%, 100% 39%, 100% 100%);
 }
-.pad-btn > * { position: relative; z-index: 1; }
+/* accent V — sits on top of white piping, slightly smaller */
+.pad-btn::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: var(--accent, #e74c3c);
+  clip-path: polygon(0% 100%, 0% 44%, 50% 60%, 100% 44%, 100% 100%);
+}
+.pad-btn > * { position: relative; z-index: 2; }
 .pad-btn:hover { filter: brightness(1.22); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.55); }
 .pad-btn:active { transform: scale(0.93) translateY(0); filter: brightness(0.95); }
 .pad-btn.playing {
@@ -155,8 +158,8 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 .pad-btn.selected, .player-card.selected {
   outline: 3px solid #e94560; outline-offset: -1px;
 }
-.pad-btn.selected::after, .player-card.selected::after {
-  content: '✓'; position: absolute; bottom: 4px; right: 6px; z-index: 3;
+.select-check {
+  position: absolute; bottom: 4px; right: 6px; z-index: 4;
   font-size: 0.9rem; color: #e94560; font-weight: bold; pointer-events: none;
 }
 
@@ -204,19 +207,23 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   align-items: center; justify-content: flex-start;
   padding: 10px 8px 4px; text-align: center; cursor: pointer;
 }
-/* V-shaped chevron on card top */
+/* white piping on card top */
+.player-card-top::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: #fff;
+  clip-path: polygon(0% 100%, 0% 41%, 50% 58%, 100% 41%, 100% 100%);
+}
+/* accent V on card top */
 .player-card-top::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
   background: var(--accent, #e74c3c);
-  /* V pointing DOWN */
-  clip-path: polygon(0% 100%, 0% 45%, 50% 62%, 100% 45%, 100% 100%);
-  filter: drop-shadow(0px -1.5px 0px rgba(255,255,255,0.65));
+  clip-path: polygon(0% 100%, 0% 46%, 50% 63%, 100% 46%, 100% 100%);
 }
 .player-card-top:hover { filter: brightness(1.15); }
 /* jersey number — white with accent outline */
 .player-order-num {
   font-size: 1.6rem; font-weight: 900; color: #fff; line-height: 1;
-  letter-spacing: -2px; position: relative; z-index: 1;
+  letter-spacing: -2px; position: relative; z-index: 2;
   text-shadow:
     -1px -1px 0 var(--accent, #e74c3c),  1px -1px 0 var(--accent, #e74c3c),
     -1px  1px 0 var(--accent, #e74c3c),   1px  1px 0 var(--accent, #e74c3c),
@@ -224,12 +231,12 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 }
 .player-name {
   font-size: 0.88rem; font-weight: 800; line-height: 1.1; margin-top: 2px;
-  position: relative; z-index: 1; letter-spacing: 1.5px;
+  position: relative; z-index: 2; letter-spacing: 1.5px;
   text-shadow: 0 1px 5px rgba(0,0,0,0.9);
 }
 .player-chain-hint {
   font-size: 0.54rem; color: rgba(255,255,255,0.38); margin-top: 5px;
-  position: relative; z-index: 1;
+  position: relative; z-index: 2;
 }
 .player-card-actions { display: flex; border-top: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
 .player-action-btn {
@@ -687,9 +694,17 @@ function toggleSelect(bid) {
   if (selectedIds.has(bid)) selectedIds.delete(bid);
   else selectedIds.add(bid);
   updateSelectCount();
-  // 해당 엘리먼트만 업데이트
+  const sel = selectedIds.has(bid);
   document.querySelectorAll(`[data-bid="${bid}"]`).forEach(el => {
-    el.classList.toggle('selected', selectedIds.has(bid));
+    el.classList.toggle('selected', sel);
+    const existing = el.querySelector('.select-check');
+    if (sel && !existing) {
+      const chk = document.createElement('div');
+      chk.className = 'select-check'; chk.textContent = '✓';
+      el.appendChild(chk);
+    } else if (!sel && existing) {
+      existing.remove();
+    }
   });
 }
 
