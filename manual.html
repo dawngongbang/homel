@@ -86,6 +86,7 @@ tr:last-child td { border-bottom: none; }
     <h3>목차</h3>
     <ol>
       <li><a href="#overview">기본 구조</a></li>
+      <li><a href="#editmode">재생 모드 &amp; 편집 모드</a></li>
       <li><a href="#groups">그룹 관리</a></li>
       <li><a href="#buttons">버튼 편집</a></li>
       <li><a href="#players">선수 그룹 &amp; 등장곡</a></li>
@@ -93,7 +94,7 @@ tr:last-child td { border-bottom: none; }
       <li><a href="#select">선택 삭제</a></li>
       <li><a href="#parser">⚡ 타임스탬프 파서</a></li>
       <li><a href="#playback">재생 방식 &amp; 팝업</a></li>
-      <li><a href="#io">가져오기 / 내보내기</a></li>
+      <li><a href="#io">가져오기 / 내보내기 / 프리셋</a></li>
       <li><a href="#tips">팁 &amp; 자주 묻는 것들</a></li>
     </ol>
   </div>
@@ -104,17 +105,34 @@ tr:last-child td { border-bottom: none; }
   <table>
     <tr><th>영역</th><th>설명</th></tr>
     <tr><td>상단 탭 바</td><td>그룹별 탭 + <strong>전체</strong> 탭(모든 그룹 한 화면)</td></tr>
-    <tr><td>버튼 그리드</td><td>클릭하면 해당 구간이 즉시 재생</td></tr>
+    <tr><td>버튼 그리드</td><td>재생 모드에서 클릭하면 해당 구간이 즉시 재생</td></tr>
     <tr><td>컨트롤 바</td><td>⏸ 일시정지 / ⏹ 정지 / 볼륨 / 📺 영상 보기</td></tr>
-    <tr><td>오른쪽 패널</td><td>버튼 편집 / ⚡ 파서 / 가져오기·내보내기</td></tr>
+    <tr><td>오른쪽 패널 (▶/◀)</td><td>닫으면 재생 모드 / 열면 편집 모드 — 버튼 편집·파서·가져오기 등</td></tr>
   </table>
   <div class="tip">
     <strong>설정 저장 위치</strong>
     브라우저 localStorage에 자동 저장됩니다. config.json 파일이 있으면 그것을 우선 읽습니다. 내보내기 → JSON 파일을 config.json으로 저장하면 다음 접속부터 자동 로드됩니다.
   </div>
 
-  <!-- ② 그룹 관리 -->
-  <h2 id="groups">② 그룹 관리</h2>
+  <!-- ② 재생 모드 & 편집 모드 -->
+  <h2 id="editmode">② 재생 모드 &amp; 편집 모드</h2>
+  <p>화면 오른쪽 끝의 <strong>▶ / ◀ 토글 버튼</strong>으로 두 모드를 전환합니다.</p>
+  <table>
+    <tr><th>모드</th><th>패널 상태</th><th>버튼 클릭 시</th></tr>
+    <tr><td><strong>재생 모드</strong> (기본)</td><td>◀ 패널 닫힘</td><td>해당 구간 즉시 재생</td></tr>
+    <tr><td><strong>편집 모드</strong></td><td>▶ 패널 열림</td><td>편집 패널만 열림, 재생 안 됨</td></tr>
+  </table>
+  <div class="tip">
+    <strong>현재 재생 중인 음악은 유지됩니다</strong>
+    편집 모드로 전환해도 재생 중인 음악이 멈추지 않습니다. 경기 중에 편집하면서도 응원가가 계속 나옵니다.
+  </div>
+  <div class="tip">
+    <strong>편집 패널이 자동으로 열리는 경우</strong>
+    헤더의 <strong>+ 버튼 추가</strong>나 버튼의 ✏ 아이콘을 누르면 패널이 닫혀 있어도 자동으로 열립니다.
+  </div>
+
+  <!-- ③ 그룹 관리 -->
+  <h2 id="groups">③ 그룹 관리</h2>
   <p>탭 바 오른쪽 <strong>+ 그룹 추가</strong>로 그룹을 만들 수 있습니다.</p>
   <p>탭을 <strong>우클릭</strong>하거나 탭에 마우스를 올리면 나오는 <strong>⋯</strong> 을 누르면:</p>
   <ul>
@@ -127,9 +145,9 @@ tr:last-child td { border-bottom: none; }
     탭 바 맨 앞의 "전체" 탭을 누르면 모든 그룹의 버튼을 한 화면에서 볼 수 있습니다.
   </div>
 
-  <!-- ③ 버튼 편집 -->
-  <h2 id="buttons">③ 버튼 편집</h2>
-  <p>버튼을 클릭하거나, 버튼 위에 마우스를 올려 나오는 <strong>✏</strong> 를 누르면 오른쪽 편집 패널이 열립니다.</p>
+  <!-- ④ 버튼 편집 -->
+  <h2 id="buttons">④ 버튼 편집</h2>
+  <p><strong>편집 모드(▶ 클릭으로 패널 열기)</strong>에서 버튼을 클릭하거나, 버튼 위에 마우스를 올려 나오는 <strong>✏</strong> 를 누르면 오른쪽 편집 패널이 열립니다.</p>
   <table>
     <tr><th>항목</th><th>내용</th></tr>
     <tr><td>이름</td><td>버튼에 표시되는 이름 (최대 20자)</td></tr>
@@ -143,8 +161,8 @@ tr:last-child td { border-bottom: none; }
     저장 시 종료 시간은 필수입니다. 영상 끝까지 재생하려면 충분히 큰 값(예: 99:00)을 입력하세요.
   </div>
 
-  <!-- ④ 선수 그룹 & 등장곡 -->
-  <h2 id="players">④ 선수 그룹 &amp; 등장곡</h2>
+  <!-- ⑤ 선수 그룹 & 등장곡 -->
+  <h2 id="players">⑤ 선수 그룹 &amp; 등장곡</h2>
   <p>그룹 타입을 <strong>선수 그룹</strong>으로 설정하면 버튼에 타순 번호와 등장곡 기능이 추가됩니다.</p>
 
   <h3>타순 설정</h3>
@@ -169,8 +187,8 @@ tr:last-child td { border-bottom: none; }
     <tr><td>✏ 아이콘 (hover)</td><td>편집 패널 열기</td></tr>
   </table>
 
-  <!-- ⑤ 구간 나누기 -->
-  <h2 id="cut">⑤ ✂ 구간 나누기</h2>
+  <!-- ⑥ 구간 나누기 -->
+  <h2 id="cut">⑥ ✂ 구간 나누기</h2>
   <p>응원가 구간을 하나의 URL로 통으로 설정해 뒀을 때, 나누기 시점 하나만 입력하면 자동으로 등장곡/응원가로 분리됩니다.</p>
   <ol>
     <li>선수 그룹 버튼의 편집 패널을 엽니다.</li>
@@ -188,8 +206,8 @@ tr:last-child td { border-bottom: none; }
     나누기를 사용하면 응원가와 동일 영상을 쓰므로 등장곡 URL 칸을 비워두면 됩니다. 저장 시 자동으로 같은 videoId를 사용합니다.
   </div>
 
-  <!-- ⑥ 선택 삭제 -->
-  <h2 id="select">⑥ 선택 삭제</h2>
+  <!-- ⑦ 선택 삭제 -->
+  <h2 id="select">⑦ 선택 삭제</h2>
   <p>여러 버튼을 한 번에 삭제할 때 사용합니다.</p>
   <ol>
     <li>런치패드 헤더 오른쪽 <strong>☑ 선택</strong> 버튼을 누릅니다.</li>
@@ -198,8 +216,8 @@ tr:last-child td { border-bottom: none; }
     <li><strong>취소</strong> 또는 <kbd>Esc</kbd> 로 선택 모드를 종료합니다.</li>
   </ol>
 
-  <!-- ⑦ 타임스탬프 파서 -->
-  <h2 id="parser">⑦ ⚡ 타임스탬프 파서</h2>
+  <!-- ⑧ 타임스탬프 파서 -->
+  <h2 id="parser">⑧ ⚡ 타임스탬프 파서</h2>
   <p>유튜브 응원가 모음 영상의 댓글·설명란 타임스탬프를 그대로 붙여넣으면 버튼을 자동 생성합니다.</p>
 
   <h3>사용법</h3>
@@ -225,8 +243,8 @@ tr:last-child td { border-bottom: none; }
     <li>구간이 1초 미만인 항목은 건너뜁니다.</li>
   </ul>
 
-  <!-- ⑧ 재생 방식 -->
-  <h2 id="playback">⑧ 재생 방식 &amp; 팝업 폴백</h2>
+  <!-- ⑨ 재생 방식 -->
+  <h2 id="playback">⑨ 재생 방식 &amp; 팝업 폴백</h2>
   <h3>인라인 재생 (기본)</h3>
   <p>페이지 내 YouTube 플레이어로 재생됩니다. <strong>📺 영상 보기</strong> 버튼으로 영상 표시/숨기기를 전환할 수 있습니다.</p>
 
@@ -242,10 +260,17 @@ tr:last-child td { border-bottom: none; }
     <tr><td><kbd>Esc</kbd></td><td>재생 정지 / 선택 모드 종료 / 메뉴 닫기</td></tr>
   </table>
 
-  <!-- ⑨ 가져오기/내보내기 -->
-  <h2 id="io">⑨ 가져오기 / 내보내기</h2>
+  <!-- ⑩ 가져오기/내보내기/프리셋 -->
+  <h2 id="io">⑩ 가져오기 / 내보내기 / 프리셋</h2>
   <h3>JSON 파일로 내보내기</h3>
   <p>헤더 <strong>내보내기</strong> 버튼 → <code>baseball-launchpad.json</code> 파일이 다운로드됩니다.</p>
+
+  <h3>프리셋 불러오기</h3>
+  <p>헤더 <strong>📋 기아2025</strong> 버튼을 누르면 KIA 타이거즈 2025 기본 세팅(선수 응원가·타순·상황별)을 즉시 불러옵니다. 현재 데이터가 교체되므로 확인 창이 뜹니다.</p>
+  <div class="tip">
+    <strong>내 프리셋 만들기</strong>
+    <code>presets/</code> 폴더에 JSON 파일을 추가하면 같은 방식으로 불러올 수 있습니다 (서버에 파일을 배포한 경우).
+  </div>
 
   <h3>config.json으로 설정 고정</h3>
   <p>내보낸 파일을 <code>config.json</code>이라는 이름으로 저장하면, 다음 접속 시 자동으로 해당 설정을 불러옵니다.</p>
@@ -279,8 +304,8 @@ tr:last-child td { border-bottom: none; }
   ]
 }</div>
 
-  <!-- ⑩ 팁 -->
-  <h2 id="tips">⑩ 팁 &amp; 자주 묻는 것들</h2>
+  <!-- ⑪ 팁 -->
+  <h2 id="tips">⑪ 팁 &amp; 자주 묻는 것들</h2>
 
   <h3>타임스탬프 파서로 선수 등록 후 등장곡 설정하는 흐름</h3>
   <ol>
