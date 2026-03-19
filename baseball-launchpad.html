@@ -362,8 +362,8 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   </div>
 
   <!-- 오른쪽 편집 패널 -->
-  <div class="right-panel" id="right-panel">
-    <button class="panel-toggle" id="panel-toggle" onclick="toggleRightPanel()" title="패널 열기/닫기">◀</button>
+  <div class="right-panel collapsed" id="right-panel">
+    <button class="panel-toggle" id="panel-toggle" onclick="toggleRightPanel()" title="패널 열기 (편집 모드)">▶</button>
     <div class="right-panel-inner" id="right-panel-inner">
     <div class="panel-tab">
       <button class="tab-btn active" data-tab="edit"   onclick="switchTab('edit')">버튼 편집</button>
@@ -609,7 +609,7 @@ function toggleRightPanel() {
   const btn   = document.getElementById('panel-toggle');
   const collapsed = panel.classList.toggle('collapsed');
   btn.textContent = collapsed ? '▶' : '◀';
-  btn.title = collapsed ? '패널 열기' : '패널 닫기';
+  btn.title = collapsed ? '패널 열기 (편집 모드)' : '패널 닫기 (재생 모드로)';
 }
 
 function togglePlayer() {
@@ -688,10 +688,14 @@ function playVideoById(btnData, label) {
   updateNowPlaying(label);
 }
 
+function isEditMode() {
+  return !document.getElementById('right-panel').classList.contains('collapsed');
+}
+
 function handlePadClick(groupId, btnId) {
   if (selectMode) { toggleSelect(btnId); return; }
   const btn = findBtn(groupId, btnId); if (!btn) return;
-  openEditPanelByBtn(groupId, btnId);
+  if (isEditMode()) { openEditPanelByBtn(groupId, btnId); return; }
   pendingCheer = null;
   if (!btn.videoId) { showToast('먼저 YouTube URL을 설정하세요.'); return; }
   setActiveInfo({ groupId, btnId, mode: 'cheer' });
@@ -701,8 +705,8 @@ function handlePadClick(groupId, btnId) {
 // 카드 이름 클릭 → 등장→응원 체인 (또는 병합)
 function handleChainClick(groupId, btnId) {
   if (selectMode) { toggleSelect(btnId); return; }
-  openEditPanelByBtn(groupId, btnId);
   const btn = findBtn(groupId, btnId); if (!btn) return;
+  if (isEditMode()) { openEditPanelByBtn(groupId, btnId); return; }
 
   if (!btn.entrance || !btn.entrance.videoId) {
     if (!btn.videoId) { showToast('먼저 YouTube URL을 설정하세요.'); return; }
@@ -729,8 +733,8 @@ function handleChainClick(groupId, btnId) {
 
 function handleEntranceClick(groupId, btnId) {
   if (selectMode) { toggleSelect(btnId); return; }
-  openEditPanelByBtn(groupId, btnId);
   const btn = findBtn(groupId, btnId);
+  if (isEditMode()) { openEditPanelByBtn(groupId, btnId); return; }
   if (!btn || !btn.entrance || !btn.entrance.videoId) { handleChainClick(groupId, btnId); return; }
   pendingCheer = { videoId: btn.videoId, startSeconds: btn.startSeconds, endSeconds: btn.endSeconds, label: btn.label };
   setActiveInfo({ groupId, btnId, mode: 'entrance' });
@@ -739,8 +743,8 @@ function handleEntranceClick(groupId, btnId) {
 
 function handleCheerClick(groupId, btnId) {
   if (selectMode) { toggleSelect(btnId); return; }
-  openEditPanelByBtn(groupId, btnId);
   const btn = findBtn(groupId, btnId);
+  if (isEditMode()) { openEditPanelByBtn(groupId, btnId); return; }
   if (!btn || !btn.videoId) { showToast('먼저 YouTube URL을 설정하세요.'); return; }
   pendingCheer = null;
   setActiveInfo({ groupId, btnId, mode: 'cheer' });
@@ -1118,6 +1122,13 @@ function addButtonToCurrentGroup() {
 function openEditPanelByBtn(gid, bid) {
   const btn = findBtn(gid, bid); if (!btn) return;
   editingBtnId = bid;
+  // 패널이 닫혀있으면 열기
+  const panel = document.getElementById('right-panel');
+  if (panel.classList.contains('collapsed')) {
+    panel.classList.remove('collapsed');
+    document.getElementById('panel-toggle').textContent = '◀';
+    document.getElementById('panel-toggle').title = '패널 닫기 (재생 모드로)';
+  }
   const g = findGroup(gid);
   document.getElementById('edit-placeholder').style.display = 'none';
   document.getElementById('edit-form').style.display = 'block';
