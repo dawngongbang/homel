@@ -117,19 +117,21 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 .pad-btn {
   position: relative; aspect-ratio: 1; border: none;
   border-radius: 12px; cursor: pointer; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; padding: 10px 8px; text-align: center;
+  align-items: center; justify-content: flex-start; padding: 14px 8px 8px; text-align: center;
   transition: filter 0.12s, transform 0.12s, box-shadow 0.2s;
   font-size: 0.85rem; font-weight: 800; word-break: keep-all; overflow: hidden;
-  background: #0d1b36; color: #fff;
+  background: linear-gradient(175deg, #142245 0%, #0d1b36 100%); color: #fff;
   text-shadow: 0 1px 5px rgba(0,0,0,0.9);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
 }
-/* diagonal accent stripe (jersey chevron) */
+/* V-shaped chevron — two diagonals from outer edges meeting at center (jersey neckline) */
 .pad-btn::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
   background: var(--accent, #e74c3c);
-  clip-path: polygon(0% 70%, 100% 52%, 100% 100%, 0% 100%);
-  opacity: 0.88;
+  /* left line: (0%,58%) → center (50%,43%) ← right line: (100%,58%) */
+  clip-path: polygon(0% 100%, 0% 58%, 50% 43%, 100% 58%, 100% 100%);
+  /* white piping along the V edge via drop-shadow */
+  filter: drop-shadow(0px -1.5px 0px rgba(255,255,255,0.7));
 }
 .pad-btn > * { position: relative; z-index: 1; }
 .pad-btn:hover { filter: brightness(1.22); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.55); }
@@ -199,30 +201,33 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 }
 .player-card-top {
   flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden;
-  align-items: center; justify-content: center;
-  padding: 8px 8px 6px; text-align: center; cursor: pointer;
+  align-items: center; justify-content: flex-start;
+  padding: 10px 8px 4px; text-align: center; cursor: pointer;
 }
-/* diagonal accent stripe on card top */
+/* V-shaped chevron on card top */
 .player-card-top::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
   background: var(--accent, #e74c3c);
-  clip-path: polygon(0% 66%, 100% 46%, 100% 100%, 0% 100%);
-  opacity: 0.88;
+  clip-path: polygon(0% 100%, 0% 62%, 50% 48%, 100% 62%, 100% 100%);
+  filter: drop-shadow(0px -1.5px 0px rgba(255,255,255,0.65));
 }
 .player-card-top:hover { filter: brightness(1.15); }
-/* jersey-style order number */
+/* jersey number — white with accent outline */
 .player-order-num {
-  font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 1;
+  font-size: 1.6rem; font-weight: 900; color: #fff; line-height: 1;
   letter-spacing: -2px; position: relative; z-index: 1;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.85);
+  text-shadow:
+    -1px -1px 0 var(--accent, #e74c3c),  1px -1px 0 var(--accent, #e74c3c),
+    -1px  1px 0 var(--accent, #e74c3c),   1px  1px 0 var(--accent, #e74c3c),
+    0 3px 8px rgba(0,0,0,0.8);
 }
 .player-name {
-  font-size: 0.9rem; font-weight: 800; line-height: 1.1; margin-top: 1px;
-  position: relative; z-index: 1; letter-spacing: 1px;
+  font-size: 0.88rem; font-weight: 800; line-height: 1.1; margin-top: 2px;
+  position: relative; z-index: 1; letter-spacing: 1.5px;
   text-shadow: 0 1px 5px rgba(0,0,0,0.9);
 }
 .player-chain-hint {
-  font-size: 0.56rem; color: rgba(255,255,255,0.4); margin-top: 4px;
+  font-size: 0.54rem; color: rgba(255,255,255,0.38); margin-top: 5px;
   position: relative; z-index: 1;
 }
 .player-card-actions { display: flex; border-top: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; }
