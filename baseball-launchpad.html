@@ -74,8 +74,11 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 }
 .group-tab:hover { color: #eee; }
 .group-tab.active { color: #e94560; border-bottom-color: #e94560; }
-.group-tab .tab-edit-icon { display: none; margin-left: 6px; opacity: 0.5; font-size: 0.7rem; }
-.group-tab:hover .tab-edit-icon { display: inline; }
+.group-tab .tab-edit-icon, .group-tab .tab-del-icon {
+  display: none; margin-left: 3px; font-size: 0.65rem; opacity: 0.5; cursor: pointer; }
+.group-tab:hover .tab-edit-icon, .group-tab:hover .tab-del-icon { display: inline; }
+.group-tab .tab-edit-icon:hover { opacity:1; }
+.group-tab .tab-del-icon:hover { opacity:1; color:#e74c3c; }
 .add-group-btn {
   background: none; border: none; color: #555; padding: 10px 12px;
   cursor: pointer; font-size: 0.85rem; white-space: nowrap; transition: color 0.2s;
@@ -319,6 +322,10 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   border: 1px solid #1a5276; border-radius: 6px; padding: 7px 10px; font-size: 0.82rem; outline: none;
 }
 .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #e94560; }
+.batting-radio-group { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.batting-radio-group label { display: flex; align-items: center; background: #0f3460; border: 1px solid #1a5276; border-radius: 4px; padding: 3px 7px; cursor: pointer; font-size: 0.72rem; color: #aaa; transition: background 0.1s; }
+.batting-radio-group input[type="radio"] { display: none; }
+.batting-radio-group label:has(input:checked) { background: #e94560; border-color: #e94560; color: #fff; }
 .color-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
 .color-swatch {
   width: 26px; height: 26px; border-radius: 6px; cursor: pointer;
@@ -458,14 +465,23 @@ input[type=range] { width: 80px; accent-color: #e94560; }
             <select id="edit-group" onchange="onEditGroupChange()"></select>
           </div>
           <div id="edit-player-fields-group" style="display:none">
-            <div class="two-col">
-              <div class="form-group">
-                <label>등번호</label>
-                <input type="number" id="edit-jersey-number" min="0" max="99" placeholder="예: 47">
-              </div>
-              <div class="form-group">
-                <label>타순 (0=벤치)</label>
-                <input type="number" id="edit-batting-order" min="0" max="9" placeholder="0">
+            <div class="form-group">
+              <label>등번호</label>
+              <input type="number" id="edit-jersey-number" min="0" max="99" placeholder="예: 47" style="width:80px">
+            </div>
+            <div class="form-group">
+              <label>타순</label>
+              <div class="batting-radio-group">
+                <label><input type="radio" name="edit-batting" value="0"><span>벤치</span></label>
+                <label><input type="radio" name="edit-batting" value="1"><span>1</span></label>
+                <label><input type="radio" name="edit-batting" value="2"><span>2</span></label>
+                <label><input type="radio" name="edit-batting" value="3"><span>3</span></label>
+                <label><input type="radio" name="edit-batting" value="4"><span>4</span></label>
+                <label><input type="radio" name="edit-batting" value="5"><span>5</span></label>
+                <label><input type="radio" name="edit-batting" value="6"><span>6</span></label>
+                <label><input type="radio" name="edit-batting" value="7"><span>7</span></label>
+                <label><input type="radio" name="edit-batting" value="8"><span>8</span></label>
+                <label><input type="radio" name="edit-batting" value="9"><span>9</span></label>
               </div>
             </div>
           </div>
@@ -505,10 +521,6 @@ input[type=range] { width: 80px; accent-color: #e94560; }
                 <div class="form-group"><label>종료</label><input type="text" id="entrance-end" placeholder="0:30"></div>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label>색상</label>
-            <div class="color-row" id="color-swatches"></div>
           </div>
           <button class="btn-primary" onclick="saveEdit()">저장</button>
           <button class="btn-danger"  onclick="deleteButton()">이 버튼 삭제</button>
@@ -958,9 +970,10 @@ function renderTabs() {
     const tab = document.createElement('button');
     tab.className = 'group-tab' + (g.id === currentGroupId ? ' active' : '');
     tab.dataset.gid = g.id;
-    tab.innerHTML = `${escHtml(g.name)} <span class="tab-edit-icon">⋯</span>`;
+    tab.innerHTML = `${escHtml(g.name)} <span class="tab-edit-icon" title="이름 변경">✏</span><span class="tab-del-icon" title="그룹 삭제">🗑</span>`;
     tab.onclick = e => {
-      if (e.target.classList.contains('tab-edit-icon')) showTabContextMenu(e, g.id);
+      if (e.target.classList.contains('tab-edit-icon')) { e.stopPropagation(); renameGroup(g.id); }
+      else if (e.target.classList.contains('tab-del-icon')) { e.stopPropagation(); deleteGroup(g.id); }
       else { currentGroupId = g.id; renderAll(); }
     };
     tab.oncontextmenu = e => { e.preventDefault(); showTabContextMenu(e, g.id); };
@@ -1234,7 +1247,9 @@ function openEditPanelByBtn(gid, bid) {
   updatePlayerFields(g);
   if (g && g.type === 'players') {
     document.getElementById('edit-jersey-number').value = btn.number ?? '';
-    document.getElementById('edit-batting-order').value = btn.battingOrder ?? 0;
+    const bv = btn.battingOrder ?? 0;
+    const br = document.querySelector(`input[name="edit-batting"][value="${bv}"]`);
+    if (br) br.checked = true;
     const hasE = !!(btn.entrance && btn.entrance.videoId);
     document.getElementById('entrance-enabled').checked = hasE;
     document.getElementById('entrance-fields').style.display = hasE ? '' : 'none';
@@ -1242,7 +1257,6 @@ function openEditPanelByBtn(gid, bid) {
     document.getElementById('entrance-start').value = hasE && btn.entrance.startSeconds != null ? fmt(btn.entrance.startSeconds) : '';
     document.getElementById('entrance-end').value   = hasE && btn.entrance.endSeconds   != null ? fmt(btn.entrance.endSeconds)   : '';
   }
-  renderSwatches(btn.color);
   switchTab('edit');
 }
 
@@ -1320,7 +1334,6 @@ function saveEdit() {
   const urlInput  = document.getElementById('edit-url').value.trim();
   const startRaw  = document.getElementById('edit-start').value.trim();
   const endRaw    = document.getElementById('edit-end').value.trim();
-  const colorEl   = document.querySelector('.color-swatch.selected');
 
   if (!label) { showToast('이름을 입력하세요.', true); return; }
 
@@ -1351,12 +1364,11 @@ function saveEdit() {
 
   if (btn.videoId !== videoId) popupSet.delete(btn.videoId);
   btn.label = label; btn.videoId = videoId; btn.startSeconds = start; btn.endSeconds = end;
-  if (colorEl) btn.color = colorEl.style.background;
 
   if (targetGroup && targetGroup.type === 'players') {
     const jn = parseInt(document.getElementById('edit-jersey-number').value);
     if (!isNaN(jn) && jn >= 0) btn.number = jn; else delete btn.number;
-    btn.battingOrder = parseInt(document.getElementById('edit-batting-order').value) || 0;
+    btn.battingOrder = parseInt(document.querySelector('input[name="edit-batting"]:checked')?.value) || 0;
     if (document.getElementById('entrance-enabled').checked) {
       const eUrl = document.getElementById('entrance-url').value.trim();
       const eSt  = parseTime(document.getElementById('entrance-start').value.trim());
@@ -1579,8 +1591,12 @@ function showToast(msg, isErr = false) {
 // ══════════════════════════════════════════════════
 // 시작
 // ══════════════════════════════════════════════════
-renderSwatches(COLORS[0]);
 loadConfig();
+
+// 편집 폼 input에서 Enter → 저장
+document.getElementById('edit-form').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); saveEdit(); }
+});
 </script>
 </body>
 </html>
