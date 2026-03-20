@@ -1,0 +1,560 @@
+{
+  "groups": [
+    {
+      "id": "g1",
+      "name": "팀 응원가",
+      "type": "general",
+      "gridCols": 5,
+      "buttons": [
+        {
+          "id": "10ceac85",
+          "label": "라인업송",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 0,
+          "endSeconds": 105
+        },
+        {
+          "id": "11e28a22",
+          "label": "기아 없이는 못 살아",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1234,
+          "endSeconds": 1266
+        },
+        {
+          "id": "db0c01f8",
+          "label": "두다",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1266,
+          "endSeconds": 1300
+        },
+        {
+          "id": "15b776fe",
+          "label": "승리를 위해",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1300,
+          "endSeconds": 1337
+        },
+        {
+          "id": "77d38f6d",
+          "label": "승리를 위해 함께 부르자",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1337,
+          "endSeconds": 1373
+        },
+        {
+          "id": "d66331a2",
+          "label": "살리고달리고",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1463,
+          "endSeconds": 1495
+        },
+        {
+          "id": "dbb11ed3",
+          "label": "빠바밤송",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1735,
+          "endSeconds": 1782
+        },
+        {
+          "id": "464f0d73",
+          "label": "최강기아 승리하리라",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1782,
+          "endSeconds": 1881
+        },
+        {
+          "id": "6c16ff10",
+          "label": "미치도록 사랑해요",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1881,
+          "endSeconds": 1912
+        },
+        {
+          "id": "05e647e2",
+          "label": "영원히 사랑한다 기아",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1912,
+          "endSeconds": 1941
+        },
+        {
+          "id": "e30202b3",
+          "label": "언제나 승리하리",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1941,
+          "endSeconds": 1973
+        },
+        {
+          "id": "67667104",
+          "label": "새로운 도전",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1973,
+          "endSeconds": 2066
+        },
+        {
+          "id": "06425289",
+          "label": "최강기아를 위해",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 2066,
+          "endSeconds": 2233
+        },
+        {
+          "id": "4324cd6e",
+          "label": "우리는 하나",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 2233,
+          "endSeconds": 2322
+        },
+        {
+          "id": "8f7ec700",
+          "label": "열광하라 타이거즈",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 2322,
+          "endSeconds": 2433
+        },
+        {
+          "id": "15623f4a",
+          "label": "붉은노을",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 2433,
+          "endSeconds": 2550
+        },
+        {
+          "id": "6b548f9c",
+          "label": "영원하리라 기아타이거즈",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 2550,
+          "endSeconds": 2637
+        },
+        {
+          "id": "dd30785d",
+          "label": "오! 최강기아!",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 2637,
+          "endSeconds": 2749
+        },
+        {
+          "id": "357db39f",
+          "label": "사랑한다 기아",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 2749,
+          "endSeconds": 2842
+        },
+        {
+          "id": "bd9819f6",
+          "label": "광주의 함성",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 2842,
+          "endSeconds": 2938
+        },
+        {
+          "id": "4ada5cca",
+          "label": "기아를 응원하라",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 2938,
+          "endSeconds": 3031
+        },
+        {
+          "id": "cec27314",
+          "label": "외쳐라 최강 기아",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 3031,
+          "endSeconds": 3143
+        },
+        {
+          "id": "2a121171",
+          "label": "질풍가도",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 3143,
+          "endSeconds": 3238
+        },
+        {
+          "id": "2c823616",
+          "label": "아파트",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 3238,
+          "endSeconds": 3347
+        },
+        {
+          "id": "89610b3a",
+          "label": "남행열차",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 3347,
+          "endSeconds": 3437
+        }
+      ]
+    },
+    {
+      "id": "g2",
+      "name": "선수",
+      "type": "players",
+      "gridCols": 5,
+      "buttons": [
+        {
+          "id": "522b16fa",
+          "label": "박정우",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 105,
+          "endSeconds": 162,
+          "battingOrder": 0,
+          "number": 1
+        },
+        {
+          "id": "a7336dfe",
+          "label": "박 민",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 162,
+          "endSeconds": 233,
+          "battingOrder": 0,
+          "number": 2
+        },
+        {
+          "id": "5cdb5bd1",
+          "label": "김선빈",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 233,
+          "endSeconds": 320,
+          "battingOrder": 0,
+          "number": 3
+        },
+        {
+          "id": "35bf075e",
+          "label": "김도영",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 320,
+          "endSeconds": 375,
+          "battingOrder": 0,
+          "number": 5
+        },
+        {
+          "id": "5cae0ba1",
+          "label": "이창진",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 375,
+          "endSeconds": 435,
+          "battingOrder": 0,
+          "number": 8
+        },
+        {
+          "id": "47e683f3",
+          "label": "정해원",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 435,
+          "endSeconds": 459,
+          "battingOrder": 0,
+          "number": 9
+        },
+        {
+          "id": "1753b1cb",
+          "label": "정현창",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 459,
+          "endSeconds": 485,
+          "battingOrder": 0,
+          "number": 12
+        },
+        {
+          "id": "1210a6e4",
+          "label": "김규성",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 485,
+          "endSeconds": 533,
+          "battingOrder": 0,
+          "number": 14
+        },
+        {
+          "id": "3510a6d1",
+          "label": "박재현",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 533,
+          "endSeconds": 579,
+          "battingOrder": 0,
+          "number": 15
+        },
+        {
+          "id": "55de2c29",
+          "label": "윤도현",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 579,
+          "endSeconds": 627,
+          "battingOrder": 0,
+          "number": 16
+        },
+        {
+          "id": "ca77a7fd",
+          "label": "주효상",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 627,
+          "endSeconds": 677,
+          "battingOrder": 0,
+          "number": 22
+        },
+        {
+          "id": "8c51fd15",
+          "label": "한준수",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 677,
+          "endSeconds": 738,
+          "battingOrder": 0,
+          "number": 25
+        },
+        {
+          "id": "790b0e4c",
+          "label": "카스트로",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 738,
+          "endSeconds": 762,
+          "battingOrder": 0,
+          "number": 26
+        },
+        {
+          "id": "0db31f3a",
+          "label": "김호령",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 762,
+          "endSeconds": 814,
+          "battingOrder": 0,
+          "number": 27
+        },
+        {
+          "id": "e7703636",
+          "label": "변우혁",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 814,
+          "endSeconds": 868,
+          "battingOrder": 0,
+          "number": 29
+        },
+        {
+          "id": "81f96602",
+          "label": "제리드 데일",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 868,
+          "endSeconds": 885,
+          "battingOrder": 0,
+          "number": 32
+        },
+        {
+          "id": "297cb937",
+          "label": "황대인",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 885,
+          "endSeconds": 945,
+          "battingOrder": 0,
+          "number": 34
+        },
+        {
+          "id": "454e0ebf",
+          "label": "김석환",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 945,
+          "endSeconds": 998,
+          "battingOrder": 0,
+          "number": 35
+        },
+        {
+          "id": "0f7b0c19",
+          "label": "김태군",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 998,
+          "endSeconds": 1059,
+          "battingOrder": 0,
+          "number": 42
+        },
+        {
+          "id": "e1c3275e",
+          "label": "나성범",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1059,
+          "endSeconds": 1116,
+          "battingOrder": 0,
+          "number": 47
+        },
+        {
+          "id": "7952918f",
+          "label": "오선우",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1116,
+          "endSeconds": 1182,
+          "battingOrder": 0,
+          "number": 56
+        },
+        {
+          "id": "6bb30ce1",
+          "label": "고종욱",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1182,
+          "endSeconds": 1234,
+          "battingOrder": 0,
+          "number": 57
+        }
+      ]
+    },
+    {
+      "id": "g3",
+      "name": "상황별",
+      "type": "general",
+      "gridCols": 5,
+      "buttons": [
+        {
+          "id": "76346e01",
+          "label": "아웃송(삐끼삐끼)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1373,
+          "endSeconds": 1405
+        },
+        {
+          "id": "6c58daa3",
+          "label": "아웃송(그라제)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1405,
+          "endSeconds": 1420
+        },
+        {
+          "id": "94e35d84",
+          "label": "아웃송(피리송)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1420,
+          "endSeconds": 1435
+        },
+        {
+          "id": "9f7b875b",
+          "label": "아웃송(버터플라이)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1435,
+          "endSeconds": 1463
+        },
+        {
+          "id": "77a59656",
+          "label": "안타송(오른쪽 왼쪽)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1495,
+          "endSeconds": 1531
+        },
+        {
+          "id": "ff4a0127",
+          "label": "안타송(Party Train)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1531,
+          "endSeconds": 1549
+        },
+        {
+          "id": "19636707",
+          "label": "안타송(날려버려)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1549,
+          "endSeconds": 1575
+        },
+        {
+          "id": "4dced62a",
+          "label": "안타송(안타 홈런 날려버려라)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1575,
+          "endSeconds": 1612
+        },
+        {
+          "id": "5decfa9f",
+          "label": "안타송(안!타!)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1612,
+          "endSeconds": 1631
+        },
+        {
+          "id": "ed645438",
+          "label": "풀카운트송",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1631,
+          "endSeconds": 1684
+        },
+        {
+          "id": "9bee0a99",
+          "label": "볼넷송(파이어)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1684,
+          "endSeconds": 1698
+        },
+        {
+          "id": "3032e6e8",
+          "label": "볼넷송(Ready Go)",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1698,
+          "endSeconds": 1714
+        },
+        {
+          "id": "5361af93",
+          "label": "견제응원",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1714,
+          "endSeconds": 1721
+        },
+        {
+          "id": "392f7614",
+          "label": "도루응원",
+          "color": "#e74c3c",
+          "videoId": "Ruk1rklBDX4",
+          "startSeconds": 1721,
+          "endSeconds": 1735
+        }
+      ]
+    }
+  ]
+}

@@ -220,8 +220,9 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 }
 .player-card-top {
   flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: flex-start;
-  padding: 5cqi 8px 8px; text-align: center; cursor: pointer;
+  align-items: center; justify-content: flex-end;
+  padding: 8cqi 4px 54%; gap: 1cqi;
+  text-align: center; cursor: pointer;
   position: relative; z-index: 2;
 }
 .player-num-row {
@@ -251,16 +252,16 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   text-shadow: 0 1px 5px rgba(0,0,0,0.9);
 }
 .player-chain-hint { display: none; }
-/* 등장/응원 버튼 — 하단 오버레이 (항상 표시) */
+/* 등장/응원 버튼 — 흰색 V 시작선(46%)부터 바닥까지 */
 .player-card-actions {
-  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
-  display: flex;
+  position: absolute; top: 46%; left: 0; right: 0; bottom: 0; z-index: 3;
+  display: flex; align-items: center;
   background: rgba(0,0,0,0.55); border-top: 1px solid rgba(255,255,255,0.1);
 }
 .player-action-btn {
   flex: 1; background: transparent; border: none; color: #ddd;
-  padding: 2cqi 4px;
-  cursor: pointer; font-size: 5.5cqi;
+  padding: 1cqi 4px;
+  cursor: pointer; font-size: 6.5cqi;
   transition: background 0.15s; display: flex;
   flex-direction: column; align-items: center; gap: 0.5cqi; line-height: 1;
 }
@@ -383,7 +384,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
     <button class="btn-small" onclick="addButtonToCurrentGroup()">+ 버튼 추가</button>
     <button class="btn-small" onclick="exportConfig()">내보내기</button>
     <button class="btn-small" onclick="triggerImport()">가져오기</button>
-    <button class="btn-small" onclick="loadPreset('kia2025')" title="KIA 타이거즈 2025 기본 세팅 불러오기">📋 기아2025</button>
+    <button class="btn-small" onclick="loadPreset('kia2026')" title="KIA 타이거즈 2026 기본 세팅 불러오기">📋 기아2026</button>
     <button class="btn-small" onclick="resetConfig()" style="color:#e74c3c">초기화</button>
     <a href="./manual.html" target="_blank" class="btn-small" style="text-decoration:none">📖 사용법</a>
     <input type="file" id="import-file" accept=".json" style="display:none" onchange="importFromFile(event)">
