@@ -1208,7 +1208,7 @@ function addButtonToCurrentGroup() {
   const g = (currentGroupId === ALL_TAB) ? config.groups[0] : currentGroup(); if (!g) return;
   const isP = g.type === 'players';
   const btn = { id: uid(), label: isP ? '새 선수' : '새 버튼', videoId: '', startSeconds: 0, endSeconds: 60,
-    color: COLORS[Math.floor(Math.random() * COLORS.length)] };
+    color: '#e74c3c' };
   if (isP) btn.battingOrder = 0;
   g.buttons.push(btn);
   if (currentGroupId === ALL_TAB) currentGroupId = g.id;
