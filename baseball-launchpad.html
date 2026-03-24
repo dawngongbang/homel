@@ -622,7 +622,7 @@ window.onYouTubeIframeAPIReady = function () {
         if (e.data === YT.PlayerState.ENDED) {
           if (pendingCheer) {
             const cheer = pendingCheer; pendingCheer = null;
-            if (activeInfo) activeInfo.mode = 'cheer';
+            if (activeInfo) activeInfo.mode = 'chain';
             renderActiveState();
             playVideoById(cheer, cheer.label);
           } else {
@@ -809,7 +809,7 @@ function handleChainClick(groupId, btnId) {
   if (!btn.entrance || !btn.entrance.videoId) {
     if (!btn.videoId) { showToast('먼저 YouTube URL을 설정하세요.'); return; }
     pendingCheer = null;
-    setActiveInfo({ groupId, btnId, mode: 'cheer' });
+    setActiveInfo({ groupId, btnId, mode: 'chain' });
     playVideoById(btn, btn.label);
     return;
   }
@@ -820,7 +820,7 @@ function handleChainClick(groupId, btnId) {
 
   if (gapOk) {
     pendingCheer = null;
-    setActiveInfo({ groupId, btnId, mode: 'cheer' });
+    setActiveInfo({ groupId, btnId, mode: 'chain' });
     playVideoById({ videoId: btn.videoId, startSeconds: btn.entrance.startSeconds, endSeconds: btn.endSeconds }, btn.label);
   } else {
     pendingCheer = { videoId: btn.videoId, startSeconds: btn.startSeconds, endSeconds: btn.endSeconds, label: btn.label };
@@ -861,8 +861,8 @@ function renderActiveState() {
   document.querySelectorAll('.player-action-btn').forEach(el => {
     const active = activeInfo && activeInfo.groupId === el.dataset.gid &&
                    activeInfo.btnId === el.dataset.bid && activeInfo.mode === el.dataset.mode;
-    el.classList.toggle('entrance-active', el.dataset.mode === 'entrance' && active);
-    el.classList.toggle('cheer-active',    el.dataset.mode === 'cheer'    && active);
+    el.classList.toggle('entrance-active', el.dataset.mode === 'entrance' && active && activeInfo.mode === 'entrance');
+    el.classList.toggle('cheer-active',    el.dataset.mode === 'cheer'    && active && activeInfo.mode === 'cheer');
   });
 }
 
@@ -1096,12 +1096,13 @@ function makePlayerCard(btn, gid) {
   const hasEntrance = !!(btn.entrance && btn.entrance.videoId);
   const isActive    = activeInfo && activeInfo.groupId === gid && activeInfo.btnId === btn.id;
   const isSel       = selectedIds.has(btn.id);
-  const isEntrance  = isActive && activeInfo.mode === 'entrance';
-  const isCheer     = isActive && (activeInfo.mode === 'cheer' || !activeInfo.mode);
+  const isEntrance   = isActive && activeInfo.mode === 'entrance';
+  const isPlaying    = isActive && activeInfo.mode !== 'entrance';
+  const isCheerBtn   = isActive && activeInfo.mode === 'cheer';
 
   const card = document.createElement('div');
   card.className = 'player-card' +
-    (isEntrance ? ' entrance-playing' : '') + (isCheer ? ' playing' : '') + (isSel ? ' selected' : '');
+    (isEntrance ? ' entrance-playing' : '') + (isPlaying ? ' playing' : '') + (isSel ? ' selected' : '');
   card.style.setProperty('--accent', btn.color || '#e74c3c');
   card.dataset.gid = gid; card.dataset.bid = btn.id;
 
@@ -1126,7 +1127,7 @@ function makePlayerCard(btn, gid) {
     entBtn.innerHTML = '<span>🎵</span><span>등장</span>';
     entBtn.onclick = e => { e.stopPropagation(); handleEntranceClick(gid, btn.id); };
     const cheBtn = document.createElement('button');
-    cheBtn.className = 'player-action-btn' + (isCheer ? ' cheer-active' : '');
+    cheBtn.className = 'player-action-btn' + (isCheerBtn ? ' cheer-active' : '');
     cheBtn.dataset.gid = gid; cheBtn.dataset.bid = btn.id; cheBtn.dataset.mode = 'cheer';
     cheBtn.innerHTML = '<span>⚾</span><span>응원</span>';
     cheBtn.onclick = e => { e.stopPropagation(); handleCheerClick(gid, btn.id); };
