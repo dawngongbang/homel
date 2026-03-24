@@ -834,7 +834,7 @@ function handleEntranceClick(groupId, btnId) {
   const btn = findBtn(groupId, btnId);
   if (isEditMode()) { openEditPanelByBtn(groupId, btnId); return; }
   if (!btn || !btn.entrance || !btn.entrance.videoId) { handleChainClick(groupId, btnId); return; }
-  pendingCheer = { videoId: btn.videoId, startSeconds: btn.startSeconds, endSeconds: btn.endSeconds, label: btn.label };
+  pendingCheer = null;
   setActiveInfo({ groupId, btnId, mode: 'entrance' });
   playVideoById(btn.entrance, btn.label + ' (등장)');
 }
