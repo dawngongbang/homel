@@ -7,7 +7,7 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: #dde3f0; color: #eee;
+  background: var(--theme-page-bg, #dde3f0); color: #eee;
   font-family: 'Segoe UI', sans-serif;
   display: flex; flex-direction: column; min-height: 100vh; user-select: none;
 }
@@ -124,7 +124,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   align-items: center; justify-content: flex-start; padding: 5cqi 8px 8px; text-align: center;
   transition: filter 0.12s, transform 0.12s, box-shadow 0.2s;
   font-weight: 800; word-break: keep-all; overflow: hidden;
-  background: linear-gradient(175deg, #142245 0%, #0d1b36 100%); color: #fff;
+  background: linear-gradient(175deg, var(--theme-card-from, #142245) 0%, var(--theme-card-to, #0d1b36) 100%); color: #fff;
   text-shadow: 0 1px 5px rgba(0,0,0,0.9);
   box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
 }
@@ -137,7 +137,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 /* accent V — inner V, gap grows toward center */
 .pad-btn::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  background: var(--accent, #e74c3c);
+  background: var(--accent, var(--theme-accent, #e74c3c));
   clip-path: polygon(0% 100%, 0% 51%, 50% 72%, 100% 51%, 100% 100%);
 }
 .pad-btn > * { position: relative; z-index: 2; }
@@ -192,7 +192,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   border-radius: 12px; overflow: hidden; cursor: pointer;
   transition: filter 0.12s, transform 0.12s, box-shadow 0.2s;
   display: flex; flex-direction: column; aspect-ratio: 1;
-  background: linear-gradient(175deg, #142245 0%, #0d1b36 100%);
+  background: linear-gradient(175deg, var(--theme-card-from, #142245) 0%, var(--theme-card-to, #0d1b36) 100%);
   box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 /* white piping — pad-btn과 동일 */
@@ -204,7 +204,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
 /* accent V — pad-btn과 동일 */
 .player-card::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  background: var(--accent, #e74c3c);
+  background: var(--accent, var(--theme-accent, #e74c3c));
   clip-path: polygon(0% 100%, 0% 51%, 50% 72%, 100% 51%, 100% 100%);
 }
 .player-card:hover { filter: brightness(1.22); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.55); }
@@ -244,8 +244,8 @@ input[type=range] { width: 80px; accent-color: #e94560; }
   letter-spacing: -0.05em; position: relative; z-index: 2; pointer-events: none; white-space: nowrap;
   margin-top: 1cqi;
   text-shadow:
-    -1px -1px 0 var(--accent, #e74c3c),  1px -1px 0 var(--accent, #e74c3c),
-    -1px  1px 0 var(--accent, #e74c3c),   1px  1px 0 var(--accent, #e74c3c),
+    -1px -1px 0 var(--accent, var(--theme-accent, #e74c3c)),  1px -1px 0 var(--accent, var(--theme-accent, #e74c3c)),
+    -1px  1px 0 var(--accent, var(--theme-accent, #e74c3c)),   1px  1px 0 var(--accent, var(--theme-accent, #e74c3c)),
     0 3px 8px rgba(0,0,0,0.8);
 }
 .player-name {
@@ -392,6 +392,7 @@ input[type=range] { width: 80px; accent-color: #e94560; }
     <button class="btn-small" onclick="exportConfig()">내보내기</button>
     <button class="btn-small" onclick="triggerImport()">가져오기</button>
     <button class="btn-small" onclick="loadPreset('kia2026')" title="KIA 타이거즈 2026 기본 세팅 불러오기">📋 기아2026</button>
+    <span id="theme-label" style="font-size:0.72rem;color:#aaa;padding:0 4px;border:1px solid #444;border-radius:4px" title="현재 테마"></span>
     <button class="btn-small" onclick="resetConfig()" style="color:#e74c3c">초기화</button>
     <a href="./manual.html" target="_blank" class="btn-small" style="text-decoration:none">📖 사용법</a>
     <input type="file" id="import-file" accept=".json" style="display:none" onchange="importFromFile(event)">
@@ -584,6 +585,29 @@ const COLORS = [
 ];
 const ALL_TAB = '__all__';
 const DEFAULT_VIDEO = 'Ruk1rklBDX4';
+
+const THEMES = {
+  kia: {
+    name:     '기아타이거즈',
+    cardFrom: '#142245',
+    cardTo:   '#0d1b36',
+    accent:   '#e74c3c',
+    pageBg:   '#dde3f0',
+  },
+};
+
+function applyTheme(id) {
+  const t = THEMES[id] || THEMES.kia;
+  const b = document.body;
+  b.style.setProperty('--theme-card-from', t.cardFrom);
+  b.style.setProperty('--theme-card-to',   t.cardTo);
+  b.style.setProperty('--theme-accent',    t.accent);
+  b.style.setProperty('--theme-page-bg',   t.pageBg);
+  const el = document.getElementById('theme-label');
+  if (el) el.textContent = t.name;
+}
+
+function activeTheme() { return THEMES[config.theme] || THEMES.kia; }
 
 // ══════════════════════════════════════════════════
 // 상태
@@ -904,7 +928,7 @@ async function loadConfig() {
     const res = await fetch('./config.json?_=' + Date.now());
     if (res.ok) {
       const r = await res.json();
-      if (r && Array.isArray(r.groups)) { config = r; initCurrentGroup(); renderAll(); return; }
+      if (r && Array.isArray(r.groups)) { config = r; applyTheme(config.theme || 'kia'); initCurrentGroup(); renderAll(); return; }
       if (r && Array.isArray(r.buttons)) { config = migrateLegacy(r); initCurrentGroup(); renderAll(); return; }
     }
   } catch (_) {}
@@ -913,6 +937,7 @@ async function loadConfig() {
     if (s) { const p = JSON.parse(s); config = p.groups ? p : migrateLegacy(p); }
   } catch (_) {}
   if (!config.groups || !config.groups.length) config = defaultConfig();
+  applyTheme(config.theme || 'kia');
   initCurrentGroup(); renderAll();
 }
 
@@ -927,17 +952,17 @@ function defaultConfig() {
       { id: uid(), name: '팀 응원가', type: 'general', gridCols: 4,
         buttons: [{ id: uid(), label: '응원 시작!', videoId: DEFAULT_VIDEO, startSeconds: 0, endSeconds: 30, color: '#e74c3c' }] },
       { id: uid(), name: '선수', type: 'players', gridCols: 5, buttons: [
-        { id: uid(), label: '김도영',   battingOrder: 1, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
-        { id: uid(), label: '박찬호',   battingOrder: 2, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e67e22' },
-        { id: uid(), label: '나성범',   battingOrder: 3, videoId: '', startSeconds: 0, endSeconds: 30, color: '#f1c40f' },
-        { id: uid(), label: '소크라테스', battingOrder: 4, videoId: '', startSeconds: 0, endSeconds: 30, color: '#2ecc71' },
-        { id: uid(), label: '최형우',   battingOrder: 5, videoId: '', startSeconds: 0, endSeconds: 30, color: '#1abc9c' },
-        { id: uid(), label: '황대인',   battingOrder: 6, videoId: '', startSeconds: 0, endSeconds: 30, color: '#3498db' },
-        { id: uid(), label: '최원준',   battingOrder: 7, videoId: '', startSeconds: 0, endSeconds: 30, color: '#9b59b6' },
-        { id: uid(), label: '한준수',   battingOrder: 8, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e91e63' },
-        { id: uid(), label: '이창진',   battingOrder: 9, videoId: '', startSeconds: 0, endSeconds: 30, color: '#ff5722' },
-        { id: uid(), label: '양현종',   battingOrder: 0, videoId: '', startSeconds: 0, endSeconds: 30, color: '#607d8b' },
-        { id: uid(), label: '이의리',   battingOrder: 0, videoId: '', startSeconds: 0, endSeconds: 30, color: '#607d8b' },
+        { id: uid(), label: '김도영',    battingOrder: 1, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '박찬호',    battingOrder: 2, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '나성범',    battingOrder: 3, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '소크라테스', battingOrder: 4, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '최형우',    battingOrder: 5, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '황대인',    battingOrder: 6, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '최원준',    battingOrder: 7, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '한준수',    battingOrder: 8, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '이창진',    battingOrder: 9, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '양현종',    battingOrder: 0, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
+        { id: uid(), label: '이의리',    battingOrder: 0, videoId: '', startSeconds: 0, endSeconds: 30, color: '#e74c3c' },
       ]},
       { id: uid(), name: '상황별', type: 'general', gridCols: 5, buttons: [] }
     ]
@@ -1209,7 +1234,7 @@ function addButtonToCurrentGroup() {
   const g = (currentGroupId === ALL_TAB) ? config.groups[0] : currentGroup(); if (!g) return;
   const isP = g.type === 'players';
   const btn = { id: uid(), label: isP ? '새 선수' : '새 버튼', videoId: '', startSeconds: 0, endSeconds: 60,
-    color: '#e74c3c' };
+    color: activeTheme().accent };
   if (isP) btn.battingOrder = 0;
   g.buttons.push(btn);
   if (currentGroupId === ALL_TAB) currentGroupId = g.id;
